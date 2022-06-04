@@ -32,10 +32,10 @@ if (isset($_POST['sign-up'])) {
         header("Location: ../signup.php?error=Re Password is required&$user_data");
         exit();
     } else if (empty($fname)) {
-        header("Location: ../signup.php?error=Name is required&$user_data");
+        header("Location: ../signup.php?error=First Name is required&$user_data");
         exit();
     } else if (empty($lname)) {
-        header("Location: ../signup.php?error=Name is required&$user_data");
+        header("Location: ../signup.php?error=Last Name is required&$user_data");
         exit();
     } else if ($pass !== $re_pass) {
         header("Location: ../signup.php?error=The confirmation password  does not match&$user_data");

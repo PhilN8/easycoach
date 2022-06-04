@@ -2,8 +2,7 @@
 
 session_start();
 if (!isset($_SESSION['user_name'])) (header('location:login.php'));
-else
-    header('location:homepage.php');
+else header('location:homepage.php');
 ?>
 
 <!-- <!DOCTYPE html>

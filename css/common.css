@@ -10,6 +10,9 @@
     --nav-black: #1b1b1b;
     --nav-red: #b41b1b;
     --nav-white: #f0e6e6;
+
+    --error-bg: #a94442;
+	--error-clr: #f2dede;
 }
 
 body {
@@ -30,6 +33,12 @@ img {
 
 input, textarea, button, select {
     font: inherit;
+}
+
+.animate-opacity{animation:opac 0.8s}
+@keyframes opac{
+    from{opacity:0} 
+    to{opacity:1}
 }
 
 header.header {

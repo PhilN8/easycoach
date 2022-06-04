@@ -41,59 +41,75 @@
 
     </header>
 
-    <form class="animate-opacity" action="backend/signup_check.php" method="post">
-        <h2>Sign Up</h2>
-        <?php if (isset($_GET['error'])) { ?>
-            <p class="error"><?php echo $_GET['error']; ?></p>
-        <?php } ?>
+    <section class="register animate-opacity">
+        <div class="register__title">Registration</div>
+        <form action="backend/signup_check.php" method="post" class="register__form">
 
-        <?php if (isset($_GET['success'])) { ?>
-            <p class="success"><?php echo $_GET['success']; ?></p>
-        <?php } ?>
+            <?php if (isset($_GET['error'])) { ?>
+                <p class="register__error"><?php echo $_GET['error']; ?>
+                    <span onclick="this.parentElement.style.display = 'none';">&times;</span>
+                </p>
+            <?php } ?>
 
-        <label>First Name</label>
-        <?php if (isset($_GET['fname'])) { ?>
-            <input type="text" name="fname" placeholder="First Name" value="<?php echo $_GET['lname']; ?>"><br>
-        <?php } else { ?>
-            <input type="text" name="fname" placeholder="First Name"><br>
-        <?php } ?>
+            <div class="register__user-details">
+                <div class="register__input-box">
+                    <label for="fname" class="register__label">First Name</label>
+                    <?php if (isset($_GET['fname'])) { ?>
+                        <input value="<?= $_GET['fname'] ?>" placeholder="First Name" type="text" name="fname" id="fname" class="register__input">
+                    <?php } else { ?>
+                        <input placeholder="First Name" type="text" name="fname" id="fname" class="register__input">
+                    <?php } ?>
+                </div>
+                <div class="register__input-box">
+                    <label for="lname" class="register__label">Last Name</label>
+                    <?php if (isset($_GET['lname'])) { ?>
+                        <input value="<?= $_GET['lname'] ?>" placeholder="Last Name" type="text" name="lname" id="lname" class="register__input">
+                    <?php } else { ?>
+                        <input placeholder="Last Name" type="text" name="lname" id="lname" class="register__input">
+                    <?php } ?>
+                </div>
+                <div class="register__input-box">
+                    <label for="uname" class="register__label">User Name</label>
+                    <?php if (isset($_GET['uname'])) { ?>
+                        <input value="<?= $_GET['uname'] ?>" placeholder="User Name" type="text" name="uname" id="uname" class="register__input">
+                    <?php } else { ?>
+                        <input placeholder="User Name" type="text" name="uname" id="uname" class="register__input">
+                    <?php } ?>
+                </div>
+                <div class="register__input-box">
+                    <label for="tel_no" class="register__label">Tel No</label>
+                    <input placeholder="Tel No" type="number" name="tel_no" id="tel_no" class="register__input">
+                </div>
+                <div class="register__input-box">
+                    <label for="id_no" class="register__label">ID Number</label>
+                    <input placeholder="ID Number" type="number" name="id_no" id="id_no" class="register__input">
+                </div>
+                <div class="register__input-box">
+                    <label for="gender" class="register__label">Gender</label>
+                    <select name="gender" id="gender" class="register__input">
+                        <option value="male" selected>Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="register__input-box">
+                    <label for="password" class="register__label">Password</label>
+                    <input placeholder="Password" type="password" name="password" id="password" class="register__input">
+                </div>
+                <div class="register__input-box">
+                    <label for="re_password" class="register__label">Confirm Password</label>
+                    <input placeholder="Confirm Password" type="password" name="re_password" id="re_password" class="register__input">
+                </div>
+            </div>
 
-        <label>Last Name</label>
-        <?php if (isset($_GET['lname'])) { ?>
-            <input type="text" name="lname" placeholder="Last Name" value="<?php echo $_GET['lname']; ?>"><br>
-        <?php } else { ?>
-            <input type="text" name="lname" placeholder="Last Name"><br>
-        <?php } ?>
+            <div class="register__submit">
+                <input type="submit" value="Register" name="sign-up" class="register__submit--btn">
+            </div>
 
-        <label>User Name</label>
-        <?php if (isset($_GET['uname'])) { ?>
-            <input type="text" name="uname" placeholder="User Name" value="<?php echo $_GET['uname']; ?>"><br>
-        <?php } else { ?>
-            <input type="text" name="uname" placeholder="User Name"><br>
-        <?php } ?>
-
-        <label>Tel Number</label>
-        <input type="number" name="tel_no" placeholder="Tel Number"><br>
-
-        <label>ID Number</label>
-        <input type="number" name="id_no" placeholder="ID Number"><br>
-
-        <label>Password</label>
-        <select name="gender" id="gender">
-            <option value="male" selected>Male</option>
-            <option value="female">Female</option>
-        </select><br>
-
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Password"><br>
-
-        <label>Confirm Password</label>
-        <input type="password" name="re_password" placeholder="Re_Password"><br>
-
-        <button type="submit" name="sign-up">Sign Up</button>
-        <a href="login.php" class="ca">Already have an account?</a>
-        <!-- <a href="index.php" class="ca">Home Page</a> -->
-    </form>
+            <p class="register__link">
+                <a href="login.php">Already have an account?</a>
+            </p>
+        </form>
+    </section>
 
     <footer class="footer">
 
@@ -150,7 +166,7 @@
         </p>
     </footer>
 
-    <script src="nav.js"></script>
+    <script src="scripts/nav.js"></script>
 </body>
 
 </html>

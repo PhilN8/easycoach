@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (/*isset($_SESSION['id']) &&*/isset($_SESSION['user_name'])) {
+if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
 ?>
     <!DOCTYPE html>

@@ -48,7 +48,6 @@
 .login__form--label {
     color: var(--nav-black);
 	font-size: 18px;
-	/* padding: 10px; */
 }
 
 .login__form--btn {
