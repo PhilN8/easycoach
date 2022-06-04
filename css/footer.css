@@ -1,0 +1,45 @@
+.footer {
+    background-color: #222;
+    color: white;
+    
+    padding-block: 2rem;
+}
+
+.footer__bottom--text {
+    background-color: black;
+    text-align: center;
+
+    padding: 1.5rem 0;
+}
+
+.footer__col {
+    margin-bottom: 1.2rem;
+}
+
+.footer__col--title {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer__col--contact:hover {
+    color: var(--nav-red, dodgerblue);
+    color: dodgerblue;
+}
+
+@media (min-width: 600px) {
+    .footer-container {
+        display: flex;
+        gap: 2em;
+    }
+
+    .footer__col {
+        width: 100%;
+    }
+
+    .footer__col--contact {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid white;
+    }
+}

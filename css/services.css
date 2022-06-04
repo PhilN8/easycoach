@@ -1,0 +1,67 @@
+.container {
+    width: min(85%, 1000px);
+    margin-inline: auto;
+}
+
+.intro__text span,
+.help__text span {
+    font-weight: bold;
+}
+
+main section {
+    margin-block: 1.5rem;
+}
+
+.terms__list {
+    margin-left: 1em;
+}
+
+.terms__list--secondary {
+    margin-left: 2em;
+}
+
+.parcels__table,
+.cost__table {
+    width: 100%;
+    margin-bottom: 1.2rem;
+
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.parcels__table {
+    /* width: 80%; */
+    margin-inline: auto;
+}
+
+
+.cost__table td,
+.parcels__table td, th {
+    text-align: center;
+    border: 1px solid black;
+
+    padding-block: 0.2rem;
+}
+
+.cost__table th,
+.parcels__table th {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+
+}
+
+@media (min-width: 800px) {
+    .flex {
+        display: flex;
+        gap: 2em;
+    }
+
+    .parcels {
+        flex-grow: 1;
+    }
+
+    .help {
+        flex-basis: 40%;
+    }
+}

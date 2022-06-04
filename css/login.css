@@ -1,0 +1,120 @@
+.login {
+	background: #fff;
+    margin: 3em 0;
+}
+
+.login__form {
+    max-width: 500px;
+	border: 1px solid var(--nav-black);
+    box-shadow: 0 0 5px;
+	padding: 30px;
+	background: #fff;
+	border-radius: 15px;
+    margin-inline: auto;
+}
+
+.login__form--title {
+    text-align: center;
+	margin-bottom: 40px;
+}
+
+.login__form--input {
+    display: block;
+	border: 2px solid var(--nav-black);
+	width: 95%;
+	padding: 10px;
+	margin: 10px auto;
+	border-radius: 5px;
+}
+
+.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%;font-size: 1rem;}
+.login__form--text {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.login__form--link {
+    text-decoration: none;
+    color: #444;
+    font-weight: 700;
+}
+
+.login__form--link:hover {
+    text-decoration: underline;
+    color: dodgerblue;
+}
+
+
+.login__form--label {
+    color: var(--nav-black);
+	font-size: 18px;
+	/* padding: 10px; */
+}
+
+.login__form--btn {
+    float: none;
+    background: #555;
+	padding: 10px 15px;
+	color: #fff;
+	border-radius: 5px;
+	margin-left: 10px;
+    outline: none;
+    
+	border: 1px solid var(--nav-red);
+    background-color: var(--nav-red);
+    color: var(--nav-white);
+
+    transition: all 0.3s ease-out;
+}
+
+.login__form--btn:hover {
+    opacity: 0.7;
+}
+
+p.error {
+    background: #F2DEDE;
+    color: #A94442;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 0px auto 20px;
+    position: relative;
+}
+
+.error span,
+.success span,
+.logout span {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 10px;
+    font-size: 30px;
+    transition: all 0.3s ease;
+}
+
+.success {
+    background: #D4EDDA;
+    color: #40754C;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.logout {
+    background-color: dodgerblue;
+    color: #1212ac;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.animate-opacity{animation:opac 0.8s}
+@keyframes opac{
+    from{opacity:0} 
+    to{opacity:1}
+}

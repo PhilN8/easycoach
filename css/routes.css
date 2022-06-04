@@ -1,0 +1,38 @@
+.container {
+    width: min(85%, 1000px);
+    margin-inline: auto;
+}
+
+.hero {
+    margin-top: 2rem;
+}
+
+.routes {
+    margin-block: 1.5rem;
+}
+
+.hero__text {
+    font-size: clamp(1rem, 1rem + 2vw, 1.2rem);
+}
+
+.routes__table {
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.routes__table tr {
+    font-size: 1.1rem;
+}
+
+.routes__table td {
+    border-right: 1px solid #222;
+    text-align: center;
+    padding-block: 0.2rem;
+}
+
+.routes__table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.routes__table tr:hover {background-color: #ddd;}

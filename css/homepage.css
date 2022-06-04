@@ -1,0 +1,67 @@
+/* Borrowed from W3.CSS */
+.w3-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
+.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%;font-size: 1rem;}
+.w3-section{margin-block: 1rem; margin: 1rem 0;}
+.w3-right{float:right}
+
+.animate-opacity{animation:opac 0.8s}
+@keyframes opac{
+    from{opacity:0} 
+    to{opacity:1}
+}
+
+section.home-section {
+    margin-top: 3em;
+}
+
+section.home-section:not(.intro) {
+    display: none;
+}
+
+.footer {
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    padding-top: 0;
+}
+
+.intro__btn,
+.complete__btn {
+    text-decoration: none;
+    padding: 7px 15px;
+    background-color: var(--nav-red);
+    color: var(--nav-white);
+    border-radius: 4px;
+
+    margin-top: 1em;
+
+    border: 1px solid var(--nav-red);
+    transition: all 0.3s ease-out;
+}
+
+.intro__btn:hover,
+.complete__btn:hover {
+    background-color: var(--nav-white);
+    color: var(--nav-red);
+}
+
+.delete__btn {
+    padding: 7px 15px;
+    border-radius: 4px;
+
+    background-color: var(--nav-black);
+    color: var(--nav-white);
+    border-radius: 4px;
+
+    margin-top: 1em;
+
+    border: 1px solid var(--nav-black);
+    transition: all 0.3s ease-out;
+}
+
+.delete__btn:hover{
+    background-color: var(--nav-white);
+    color: var(--nav-black);
+}
+
