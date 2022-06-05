@@ -19,17 +19,17 @@
     <header class="header">
         <div class="brand">
             <h1 class="brand__title">
-                <a href="#" class="brand__title--link">EasyCoach Ke</a>
+                <a href="index.html" class="brand__title--link">EasyCoach Ke</a>
             </h1>
         </div>
 
         <nav class="navbar">
             <ul class="nav__list">
-                <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
                 <li class="nav__item"><a href="about-us.html" class="nav__link">About Us</a></li>
                 <li class="nav__item"><a href="routes.html" class="nav__link">Routes</a></li>
                 <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
-                <li class="nav__item"><a href="book_online.php" class="nav__link nav__link--btn">Book Online</a></li>
+                <li class="nav__item"><a href="login.php" class="nav__link nav__link--btn">Book Online</a></li>
             </ul>
         </nav>
 
@@ -42,7 +42,7 @@
     </header>
 
     <section class="register animate-opacity">
-        <div class="register__title">Registration</div>
+        <div class="register__title">Sign Up</div>
         <form action="backend/signup_check.php" method="post" class="register__form">
 
             <?php if (isset($_GET['error'])) { ?>
