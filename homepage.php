@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+include_once "backend/routes.php";
+include_once "backend/tickets.php";
+
 if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
 ?>
@@ -16,7 +19,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
         <link rel="stylesheet" href="css/common.css">
         <link rel="stylesheet" href="css/homepage.css">
-        <script src="scripts/jquery.min.js" async></script>
+        <script src="scripts/jquery.min.js"></script>
         <script src="scripts/homepage.js" async></script>
         <link rel="icon" href="img/title.jpeg" type="image/x-icon">
     </head>
@@ -83,6 +86,26 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
                         </div>
                     <?php } ?>
 
+                    <?php if (isset($_GET['booking'])) { ?>
+                        <div class="intro__messages--success">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Booking Successful</h2>
+                            <p class="intro__messages--text">
+                                Thank you for booking with us!
+                            </p>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['no-booking'])) { ?>
+                        <div class="intro__messages--failed">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Booking Failed</h2>
+                            <p class="intro__messages--text">
+                                Something went wrong while booking your ticket
+                            </p>
+                        </div>
+                    <?php } ?>
+
                     <h2 class="intro__title">Welcome, <?php echo $_SESSION['name'] ?></h2>
                     <p class="intro__text">Proceed to book your ticket now!</p>
 
@@ -91,8 +114,29 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
                 <section class="history home-section animate-opacity" id="history">
                     <h2 class="history__title">History of Purchases</h2>
-                    <?php if (isset($purchase_records) && (count($purchase_records) > 0)) { ?>
-                        <table class="history__table"></table>
+                    <?php if (isset($tickets)) { ?>
+                        <table class="history__table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Departed From</th>
+                                    <th>Destination</th>
+                                    <th>Departure Date</th>
+                                    <th>Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($tickets as $row) { ?>
+                                    <tr>
+                                        <td><?= $row['ticket_id'] ?></td>
+                                        <td><?= $row['departure'] ?></td>
+                                        <td><?= $row['destination'] ?></td>
+                                        <td><?= $row['departure_date'] ?></td>
+                                        <td><?= $row['cost'] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     <?php } else { ?>
                         <p class="history__text">No Records of Purchased Tickets</p>
                     <?php } ?>
@@ -100,8 +144,31 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
                 <section class="home-section animate-opacity ticket" id="ticket">
                     <h2 class="ticket__title">Book a Ticket</h2>
-                    <form action="backend/book_ticket.php" method="post" class="ticket__form">
 
+                    <form action="backend/book_ticket.php" method="post" class="ticket__form">
+                        <input type="hidden" name="userID" value="<?= $_SESSION['user_id'] ?>">
+
+                        <div class="ticket__form--box">
+                            <select name="route" id="route" class="ticket__form--input">
+                                <?php if (isset($routes)) {
+                                    foreach ($routes as $row) { ?>
+                                        <option value="<?= $row['route_id'] ?>"><?php echo $row['departure'] . " - " . $row['destination'] ?></option>
+                                <?php }
+                                } ?>
+                            </select>
+                            <label for="route" class="ticket__form--label">Choose Route</label>
+                        </div>
+
+                        <div class="ticket__form--box">
+                            <input type="number" name="cost" id="cost" class="ticket__form--input" readonly>
+                            <label for="cost" class="ticket__form--label">Cost</label>
+                        </div>
+                        <div class="ticket__form--box">
+                            <input type="date" name="dep_date" id="dep_date" class="ticket__form--input" value="" placeholder="" min="javascript:new Date().toISOString().split('T')[0]" />
+                            <label for="dep_date" class="ticket__form--label">Departure Date</label>
+                        </div>
+
+                        <button class="complete__btn" type="submit" name="book-ticket">Complete</button>
                     </form>
                 </section>
 
@@ -120,7 +187,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
                                 <option value="password">Password</option>
                                 <option value="gender">Gender</option>
                             </select>
-                            <label for="new-val" class="profile__form--label">Enter your gender</label>
+                            <label for="new-val" class="profile__form--label">Choose Option</label>
                         </div>
 
                         <div class="profile__form--box">
