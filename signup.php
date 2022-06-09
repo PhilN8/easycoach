@@ -51,8 +51,8 @@
                 </p>
             <?php } ?>
 
-            <div class="register__user-details">
-                <div class="register__input-box">
+            <div class="register__user--details">
+                <div class="register__input--box">
                     <label for="fname" class="register__label">First Name</label>
                     <?php if (isset($_GET['fname'])) { ?>
                         <input value="<?= $_GET['fname'] ?>" placeholder="First Name" type="text" name="fname" id="fname" class="register__input">
@@ -60,7 +60,7 @@
                         <input placeholder="First Name" type="text" name="fname" id="fname" class="register__input">
                     <?php } ?>
                 </div>
-                <div class="register__input-box">
+                <div class="register__input--box">
                     <label for="lname" class="register__label">Last Name</label>
                     <?php if (isset($_GET['lname'])) { ?>
                         <input value="<?= $_GET['lname'] ?>" placeholder="Last Name" type="text" name="lname" id="lname" class="register__input">
@@ -68,7 +68,7 @@
                         <input placeholder="Last Name" type="text" name="lname" id="lname" class="register__input">
                     <?php } ?>
                 </div>
-                <div class="register__input-box">
+                <div class="register__input--box">
                     <label for="uname" class="register__label">User Name</label>
                     <?php if (isset($_GET['uname'])) { ?>
                         <input value="<?= $_GET['uname'] ?>" placeholder="User Name" type="text" name="uname" id="uname" class="register__input">
@@ -76,26 +76,26 @@
                         <input placeholder="User Name" type="text" name="uname" id="uname" class="register__input">
                     <?php } ?>
                 </div>
-                <div class="register__input-box">
+                <div class="register__input--box">
                     <label for="tel_no" class="register__label">Tel No</label>
                     <input placeholder="Tel No" type="number" name="tel_no" id="tel_no" class="register__input">
                 </div>
-                <div class="register__input-box">
+                <div class="register__input--box">
                     <label for="id_no" class="register__label">ID Number</label>
                     <input placeholder="ID Number" type="number" name="id_no" id="id_no" class="register__input">
                 </div>
-                <div class="register__input-box">
+                <div class="register__input--box">
                     <label for="gender" class="register__label">Gender</label>
                     <select name="gender" id="gender" class="register__input">
                         <option value="male" selected>Male</option>
                         <option value="female">Female</option>
                     </select>
                 </div>
-                <div class="register__input-box">
+                <div class="register__input--box">
                     <label for="password" class="register__label">Password</label>
                     <input placeholder="Password" type="password" name="password" id="password" class="register__input">
                 </div>
-                <div class="register__input-box">
+                <div class="register__input--box">
                     <label for="re_password" class="register__label">Confirm Password</label>
                     <input placeholder="Confirm Password" type="password" name="re_password" id="re_password" class="register__input">
                 </div>

@@ -53,6 +53,36 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
             <div class="container">
 
                 <section class="home-section animate-opacity intro" id="intro">
+                    <?php if (isset($_GET['Message']) && $_GET['Message'] == 'Success') { ?>
+                        <div class="intro__messages--success">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Success</h2>
+                            <p class="intro__messages--text">
+                                <?= ucwords(str_replace("_", " ", $_GET['update'])) ?> Updated!
+                            </p>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['Message']) && $_GET['Message'] == 'Failed') { ?>
+                        <div class="intro__messages--failed">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Update Failed</h2>
+                            <p class="intro__messages--text">
+                                Please try again later...
+                            </p>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['error'])) { ?>
+                        <div class="intro__messages--failed">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Update Failed</h2>
+                            <p class="intro__messages--text">
+                                <?= ucwords($_GET['error']) ?>
+                            </p>
+                        </div>
+                    <?php } ?>
+
                     <h2 class="intro__title">Welcome, <?php echo $_SESSION['name'] ?></h2>
                     <p class="intro__text">Proceed to book your ticket now!</p>
 
@@ -70,44 +100,51 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
                 <section class="home-section animate-opacity ticket" id="ticket">
                     <h2 class="ticket__title">Book a Ticket</h2>
+                    <form action="backend/book_ticket.php" method="post" class="ticket__form">
+
+                    </form>
                 </section>
 
                 <section class="home-section animate-opacity profile" id="profile">
-                    <h2 class="profile__title">Edit Profile</h2>
-                    <form action="backend/edit_user.php" id="editForm" method="POST">
-
+                    <form action="backend/edit_user.php" method="post" class="profile__form">
+                        <h2 class="profile__title">Edit Profile</h2>
                         <input type="hidden" name="userID" value="<?= $_SESSION['user_id'] ?>">
 
-                        <label for="edit-option">Choose column to edit</label>
-                        <select name="options" id="edit-option" class="w3-input" onchange="changeOpt()">
-                            <option value="first_name">First Name</option>
-                            <option value="last_name">Last Name</option>
-                            <option value="user_name">User Name</option>
-                            <option value="tel_no">Tel Number</option>
-                            <option value="id_no">ID Number</option>
-                            <option value="password">Password</option>
-                            <option value="gender">Gender</option>
-                        </select><br>
+                        <div class="profile__form--box">
+                            <select name="edit-option" id="edit-option" class="profile__form--input" onchange="changeOption()">
+                                <option value="first_name" selected>First Name</option>
+                                <option value="last_name">Last Name</option>
+                                <option value="user_name">User Name</option>
+                                <option value="tel_no">Tel Number</option>
+                                <option value="id_no">ID Number</option>
+                                <option value="password">Password</option>
+                                <option value="gender">Gender</option>
+                            </select>
+                            <label for="new-val" class="profile__form--label">Enter your gender</label>
+                        </div>
 
-                        <label for="new-val">New Value</label>
-                        <input type="text" name="new-update" placeholder="Enter new value..." id="new-val" class="w3-input"><br>
+                        <div class="profile__form--box">
+                            <input type="text" name="new-value" id="new-value" class="profile__form--input" placeholder=" ">
+                            <label for="new-value" class="profile__form--label">New Value</label>
+                        </div>
 
-                        <label for="gender-option">Enter a new option</label>
-                        <select name="gender" id="gender-option" disabled="disabled" class="w3-input">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
+                        <div class="profile__form--box">
+                            <select name="gender" id="gender" disabled="disabled" class="profile__form--input">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <label for="new-val" class="profile__form--label">Enter your gender</label>
+                        </div>
 
-                        <button class="w3-button w3-center w3-section complete__btn" type="submit" name="edit-personal">Complete</button>
-                        <button class="w3-button w3-center w3-right w3-section delete__btn" type="submit" name="delete-user" id="delete-user">Delete</button>
-
+                        <button class="complete__btn" type="submit" name="edit-personal">Complete</button>
+                        <!-- <button class="delete__btn" type="submit" name="delete-user" id="delete-user">Delete</button> -->
                     </form>
                 </section>
             </div>
         </main>
 
 
-        <footer class="footer" style="position: fixed; bottom: 0; left: 0; width: 100%; padding-top: 0;">
+        <footer class="footer" style="/*position: fixed; bottom: 0; left: 0; width: 100%;*/ padding-top: 0;">
 
             <!-- <div class="container">
                 <div class="footer-container">
@@ -161,8 +198,6 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
                 © Copyright - EasyCoach Ltd.
             </p>
         </footer>
-
-        <script src="scripts/nav.js"></script>
 
     </body>
 

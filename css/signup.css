@@ -40,14 +40,14 @@ input[type=number] {
 	background: linear-gradient(135deg, var(--nav-red), var(--nav-white));
 }
 
-.register__user-details {
+.register__user--details {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	margin: 1.25rem 0 0.75rem;
 }
 
-.register__input-box {
+.register__input--box {
 	margin-bottom: 0.9375rem;
 	width: calc(100% / 2 - 1.25rem);
 }
@@ -142,7 +142,7 @@ p.register__error {
 }
 
 @media screen and (max-width: 584px) {
-	.register__input-box {
+	.register__input--box {
 		width: 100%;
 	}
 

@@ -135,9 +135,4 @@ if (!isset($_SESSION['user_id'])) {
 
     </html>
 
-<?php } else {
-    if ($_SESSION['role'] == 2)
-        header('location:homepage.php');
-    else
-        header('location:admin.php');
-}
+<?php } else ($_SESSION['role'] == 2) ?  header('location:homepage.php') : header('location:admin.php');

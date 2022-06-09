@@ -34,14 +34,14 @@ const openSection = section => {
     document.getElementById(section).style.display = "block"
 }
 
-const changeOpt = () => {
+const changeOption = () => {
     var option = $('#edit-option').val()
 
     if (option == 'gender') {
-        $('#gender-option').prop('disabled', false);
-        $('#new-val').prop('disabled', true);
+        $('#gender').prop('disabled', false);
+        $('#new-value').prop('disabled', true);
     } else {
-        $('#gender-option').prop('disabled', true);
-        $('#new-val').prop('disabled', false);
+        $('#gender').prop('disabled', true);
+        $('#new-value').prop('disabled', false);
     }
 }
