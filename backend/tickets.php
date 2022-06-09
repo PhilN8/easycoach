@@ -9,7 +9,6 @@ $ticket_sql = 'SELECT a.`ticket_id`, b.`departure`, b.`destination`, a.`cost`, a
                 WHERE a.`route_id` = b.`route_id`;';
 
 if ($_SESSION['role'] == 2)
-    // $ticket_sql = 'SELECT * FROM tbl_ticket_users WHERE user_id=' . $_SESSION['user_id'];
     $ticket_sql = "SELECT a.`ticket_id`, b.`departure`, b.`destination`, a.`cost`, a.`departure_date` 
                     FROM `tbl_ticket_users` AS a
                     INNER JOIN `tbl_routes` AS b 

@@ -4,6 +4,7 @@ session_start();
 if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
 
     include_once 'backend/users.php';
+    include_once 'backend/tickets.php';
 ?>
 
     <!DOCTYPE html>
@@ -97,21 +98,34 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                     </form>
                 </section>
 
-                <section class="meal-plan admin-section animate-opacity" id="meal-plan">
-                    <h2>Meal Plans</h2>
-                    <p>
-                        Add or edit meal plans in this section.
-                    </p>
-                </section>
-
                 <section class="history admin-section animate-opacity" id="history">
                     <h2 class="history__title">History of Purchases</h2>
-                    <?php if (isset($purchase_records) && (count($purchase_records) > 0)) { ?>
-                        <table class="history__table"></table>
+                    <?php if (isset($tickets)) { ?>
+                        <table class="history__table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Departed From</th>
+                                    <th>Destination</th>
+                                    <th>Departure Date</th>
+                                    <th>Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($tickets as $row) { ?>
+                                    <tr>
+                                        <td><?= $row['ticket_id'] ?></td>
+                                        <td><?= $row['departure'] ?></td>
+                                        <td><?= $row['destination'] ?></td>
+                                        <td><?= $row['departure_date'] ?></td>
+                                        <td><?= $row['cost'] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     <?php } else { ?>
                         <p class="history__text">No Records of Purchased Tickets</p>
                     <?php } ?>
-
                 </section>
 
                 <section class="users admin-section animate-opacity" id="users">

@@ -219,18 +219,18 @@ section.admin-section:not(.intro) {
 
 /* USERS */
 
-.users__table {
+.users__table, .history__table {
     width: min(100%, 900px);
-    margin-inline: auto;
+    margin: 2em auto 0;
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-.users__table thead tr {
+.users__table thead tr, .history__table thead tr {
     font-size: 1.1rem;
 }
 
-.users__table th {
+.users__table th, .history__table th {
     border-right: 1px solid white;
     text-align: center;
     background-color: var(--nav-black, #1b1b1b);
@@ -238,14 +238,14 @@ section.admin-section:not(.intro) {
     padding-block: 0.2rem;
 }
 
-.users__table td {
+.users__table td, .history__table td {
     border-right: 1px solid #222;
     text-align: center;
     padding-block: 0.2rem;
 }
 
-.users__table tr:nth-child(even) {
+.users__table tr:nth-child(even), .history__table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-.users__table tr:hover {background-color: #ddd;}
+.users__table tr:hover, .history__table tr:hover {background-color: #ddd;}
