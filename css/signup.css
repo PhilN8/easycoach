@@ -40,7 +40,7 @@ input[type=number] {
 	background: linear-gradient(135deg, var(--nav-red), var(--nav-white));
 }
 
-.register__user--details {
+.register__user--container {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -146,12 +146,12 @@ p.register__error {
 		width: 100%;
 	}
 
-	.register__user-details {
+	.register__user--container {
 		max-height: 300px;
 		overflow-y: scroll;
 	}
 
-	.register__user-details::-webkit-scrollbar {
+	.register__user--container::-webkit-scrollbar {
 		width: 0;
 	}
 

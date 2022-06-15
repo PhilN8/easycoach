@@ -51,7 +51,7 @@
                 </p>
             <?php } ?>
 
-            <div class="register__user--details">
+            <div class="register__user--container">
                 <div class="register__input--box">
                     <label for="fname" class="register__label">First Name</label>
                     <?php if (isset($_GET['fname'])) { ?>

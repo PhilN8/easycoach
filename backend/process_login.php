@@ -47,7 +47,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
                 exit();
             }
         } else {
-            header("Location: ../login.php?error=Incorect User name or password");
+            header("Location: ../login.php?error=Incorrect User name or password");
             exit();
         }
     }

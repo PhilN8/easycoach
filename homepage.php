@@ -36,6 +36,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
             <nav class="navbar">
                 <ul class="nav__list">
                     <li class="nav__item"><a href="javascript:void(0)" class="nav__link" onclick="openSection('ticket')">Book a Ticket</a></li>
+                    <li class="nav__item"><a href="javascript:void(0)" class="nav__link" onclick="openSection('wallet')">Wallet</a></li>
                     <li class="nav__item"><a href="javascript:void(0)" class="nav__link" onclick="openSection('history')">History</a></li>
                     <li class="nav__item"><a href="javascript:void(0)" class="nav__link" onclick="openSection('profile')">Profile</a></li>
                     <li class="nav__item"><a href="backend/logout.php" class="nav__link nav__link--btn">Logout</a></li>
@@ -50,7 +51,20 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
         </header>
 
+        <?php if (isset($_POST['seats'])) { ?>
+            <script>
+                $(document).ready(function() {
+                    openSection('ticket');
+                    // document.getElementById('ticket__form--details').scrollIntoView();
+                    const ticket = document.getElementById('ticket__form--details')
 
+                    window.scrollTo({
+                        top: ticket,
+                        behavior: 'smooth'
+                    })
+                });
+            </script>
+        <?php } ?>
 
         <main class="main">
             <div class="container">
@@ -142,34 +156,59 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
                     <?php } ?>
                 </section>
 
+                <section class="wallet home-section animate-opacity" id="wallet">
+                    <h2 class="wallet__title">Wallet</h2>
+                    <p class="wallet__text">
+                        Add Funds to your E-Wallet!
+                    </p>
+                    <button class="complete__btn">Add Funds</button>
+                </section>
+
                 <section class="home-section animate-opacity ticket" id="ticket">
                     <h2 class="ticket__title">Book a Ticket</h2>
 
-                    <form action="backend/book_ticket.php" method="post" class="ticket__form">
+                    <form action="backend/book_ticket.php" method="post" class="ticket__form" id="ticket__form--details">
+
+                        <div class="ticket__form--container">
+
+                            <div class="ticket__form--box">
+                                <input type="number" name="seats" id="seats" class="ticket__form--input" min="1" value="1">
+                                <label for="cost" class="ticket__form--label">Number of Seats</label>
+                            </div>
+
+                            <div class="ticket__form--box">
+                                <select name="route" id="route" class="ticket__form--input">
+                                    <?php if (isset($routes)) {
+                                        foreach ($routes as $row) { ?>
+                                            <option value="<?= $row['route_id'] ?>"><?php echo $row['departure'] . " - " . $row['destination'] ?></option>
+                                    <?php }
+                                    } ?>
+                                </select>
+                                <label for="route" class="ticket__form--label">Choose Route</label>
+                            </div>
+
+                            <div class="ticket__form--box">
+                                <input type="number" name="cost" id="cost" class="ticket__form--input" readonly>
+                                <label for="cost" class="ticket__form--label">Cost</label>
+                            </div>
+
+                            <div class="ticket__form--box">
+                                <input type="number" name="total-cost" id="total-cost" class="ticket__form--input" readonly>
+                                <label for="total-cost" class="ticket__form--label">Total Cost</label>
+                            </div>
+
+                            <div class="ticket__form--box">
+                                <input type="date" name="dep-date" id="dep-date" class="ticket__form--input" value="" placeholder="" />
+                                <label for="dep-date" class="ticket__form--label">Departure Date</label>
+                            </div>
+
+                        </div>
+
                         <input type="hidden" name="userID" value="<?= $_SESSION['user_id'] ?>">
-
-                        <div class="ticket__form--box">
-                            <select name="route" id="route" class="ticket__form--input">
-                                <?php if (isset($routes)) {
-                                    foreach ($routes as $row) { ?>
-                                        <option value="<?= $row['route_id'] ?>"><?php echo $row['departure'] . " - " . $row['destination'] ?></option>
-                                <?php }
-                                } ?>
-                            </select>
-                            <label for="route" class="ticket__form--label">Choose Route</label>
-                        </div>
-
-                        <div class="ticket__form--box">
-                            <input type="number" name="cost" id="cost" class="ticket__form--input" readonly>
-                            <label for="cost" class="ticket__form--label">Cost</label>
-                        </div>
-                        <div class="ticket__form--box">
-                            <input type="date" name="dep_date" id="dep_date" class="ticket__form--input" value="" placeholder="" min="javascript:new Date().toISOString().split('T')[0]" />
-                            <label for="dep_date" class="ticket__form--label">Departure Date</label>
-                        </div>
-
-                        <button class="complete__btn" type="submit" name="book-ticket">Complete</button>
+                        <button class="complete__btn" type="submit" name="book-ticket">Proceed</button>
                     </form>
+
+
                 </section>
 
                 <section class="home-section animate-opacity profile" id="profile">
@@ -261,9 +300,9 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
 
             </div> -->
 
-            <p class="footer__bottom--text">
+            <!-- <p class="footer__bottom--text">
                 © Copyright - EasyCoach Ltd.
-            </p>
+            </p> -->
         </footer>
 
     </body>

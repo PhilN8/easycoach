@@ -48,6 +48,8 @@ const changeOption = () => {
 
 const route = document.getElementById("route");
 const cost = document.getElementById("cost");
+const totalcost = document.getElementById("total-cost");
+const seats = document.getElementById("seats");
 
 const CheckCost = () => {
   $.ajax({
@@ -56,12 +58,23 @@ const CheckCost = () => {
     data: {
       route_id: route.value,
     },
-    success: function (result) {
+    success: (result) => {
       cost.value = JSON.parse(result).cost;
+      totalcost.value = cost.value * seats.value;
+    },
+    error: () => {
+      cost.value = 0;
     },
   });
 };
+
+const changeCost = () => (totalcost.value = cost.value * seats.value);
+
 route.addEventListener("change", CheckCost);
+seats.addEventListener(
+  "input",
+  () => (totalcost.value = cost.value * seats.value)
+);
 
 function SetMinDate() {
   var now = new Date();
@@ -70,9 +83,11 @@ function SetMinDate() {
   var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
   var today = now.getFullYear() + "-" + month + "-" + day;
+  // var max = ("0" + (now.getDate() + 7)).slice(-2);
+  // console.log(max);
 
-  $("#dep_date").val(today);
-  $("#dep_date").attr("min", today);
+  $("#dep-date").val(today);
+  $("#dep-date").attr("min", today);
 }
 
 $(document).ready(function () {
