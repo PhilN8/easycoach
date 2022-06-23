@@ -40,12 +40,44 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                     <a href="javascript:void(0)" class="menu-item" onclick="openSection('profile')">Profile</a>
                     <a href="javascript:void(0)" class="menu-item" onclick="openSection('history')">History</a>
                     <a href="javascript:void(0)" class="menu-item" onclick="openSection('users')">Users</a>
+                    <a href="javascript:void(0)" class="menu-item" onclick="openSection('routes')">Routes</a>
                     <a href="backend/logout.php" class="menu-item menu-item__last">Logout</a>
                 </nav>
             </aside>
 
             <main class="content">
                 <section class="admin-section intro animate-opacity" id="intro">
+
+                    <?php if (isset($_GET['route']) && $_GET['route'] == 'no') { ?>
+                        <div class="intro__messages--failed">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Failure</h2>
+                            <p class="intro__messages--text">
+                                Please try again later...
+                            </p>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['route']) && $_GET['route'] == 'yes') { ?>
+                        <div class="intro__messages--success">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Success</h2>
+                            <p class="intro__messages--text">
+                                Route Added Successfully
+                            </p>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['route']) && $_GET['route'] == 'exists') { ?>
+                        <div class="intro__messages--failed">
+                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            <h2 class="intro__messages--title">Warning</h2>
+                            <p class="intro__messages--text">
+                                Route Already Exists
+                            </p>
+                        </div>
+                    <?php } ?>
+
                     <h1>Welcome, <?= $_SESSION['name'] ?? 'User' ?></h1>
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -60,7 +92,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                         Edit profiles of all users of the application.
                     </p>
 
-                    <form action="backend/edit_user.php" id="editForm" method="POST">
+                    <form action="backend/edit_user.php" class="profile__form" id="editForm" method="POST">
 
                         <label for="edit-user">Choose User</label>
                         <input type="text" class="w3-input" list="all-users" id="edit-user" name="userID" onchange="noDelete(<?= $_SESSION['User-ID'] ?>)">
@@ -93,7 +125,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                         </select>
 
                         <button class="w3-button w3-center w3-section complete__btn" type="submit" name="edit">Complete</button>
-                        <button class="w3-button w3-center w3-right w3-section delete__btn" type="submit" name="delete-user" id="delete-user">Delete</button>
+                        <button disabled class="w3-button w3-center w3-right w3-section delete__btn" type="submit" name="delete-user" id="delete-user">Delete</button>
 
                     </form>
                 </section>
@@ -126,6 +158,31 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                     <?php } else { ?>
                         <p class="history__text">No Records of Purchased Tickets</p>
                     <?php } ?>
+                </section>
+
+                <section class="routes admin-section animate-opacity" id="routes">
+                    <form action="backend/routes.php" method="post" class="routes__form">
+                        <h2 class="routes__form--title">Add Route</h2>
+                        <div class="routes__form--container">
+                            <div class="routes__form--box">
+                                <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
+                                <label for="departure" class="routes__form--label">Departure Point</label>
+                            </div>
+
+                            <div class="routes__form--box">
+                                <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
+                                <label for="destination" class="routes__form--label">Destination</label>
+                            </div>
+
+                            <div class="routes__form--box">
+                                <input type="text" name="price" id="price" placeholder=" " class="routes__form--input">
+                                <label for="price" class="routes__form--label">Price</label>
+                            </div>
+                        </div>
+
+                        <button class="routes__btn" type="submit" name="add-route">Add</button>
+
+                    </form>
                 </section>
 
                 <section class="users admin-section animate-opacity" id="users">
