@@ -1,0 +1,48 @@
+body {
+    min-height: 100vh;
+}
+
+.intro {
+    margin-block: 3rem;
+}
+
+.intro__text {
+    font-size: 1.1rem;
+}
+
+.intro__links--btn {
+    text-decoration: none;
+    cursor: pointer;
+    padding: 7px 15px;
+    background-color: var(--nav-red);
+    color: var(--nav-white);
+    border-radius: 4px;
+
+    margin-top: 0.3rem;
+
+    border: 1px solid var(--nav-red);
+    transition: all 0.3s ease-out;
+}
+
+.intro__links--btn:hover {
+    background-color: var(--nav-white);
+    color: var(--nav-red);
+}
+
+.intro__links--btn a {
+    transition: all 0.3s ease-out;
+    color: inherit;
+    text-decoration: none;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.intro__links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    max-width: 300px;
+}

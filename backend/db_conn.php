@@ -1,12 +1,11 @@
 <?php
 
-$sname = "localhost";
-$unmae = "root";
-$password = "";
+$servername = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'easycoach';
 
-$db_name = "easycoach";
-
-$conn = mysqli_connect($sname, $unmae, $password, $db_name);
+$conn = mysqli_connect($servername, $username, $password, $database);
 
 if (!$conn) {
     echo "Connection failed!";
