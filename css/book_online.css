@@ -31,6 +31,10 @@ input[type=number] {
     margin: 1rem auto 0;
 }
 
+.book {
+    margin-top: 2.5rem;
+}
+
 .book__form {
     max-height: 300px;
 	overflow-y: scroll;
@@ -50,6 +54,10 @@ input[type=number] {
     font-size: 1.25rem;
     font-weight: bold;
     position: relative;
+}
+
+.book__form--col .book__form--title {
+    margin-block: 0;
 }
 
 .book__form--title::before {
@@ -122,6 +130,18 @@ input[type=number] {
     cursor: pointer;
 }
 
+.book__form--col {
+    display: flex;
+    gap: 2em;
+}
+
+.book__form--col__btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: inherit;
+}
+
 .selected__table--btn {
     background-color: #dd0a0a;
     /* background-color: ; */
@@ -133,7 +153,29 @@ input[type=number] {
     color: var(--nav-red);
 }
 
+/* Error Msg */
+
+.error__msg {
+    background-color: var(--nav-red);
+    color: white;
+    padding: 1em;
+    width: max-content;
+    padding: 1rem 0.5rem;
+    margin-right: 10px;
+
+    position: sticky;
+    bottom: 10vh;
+    left: 70%;
+    display: none;
+    z-index: 10;
+}
+
+
 /* Tables */
+
+.tables {
+    margin-top: 2rem;
+}
 
 .selected {
     margin-bottom: 1.5rem;
@@ -233,7 +275,9 @@ table.selected__table {
     margin-inline: auto;
 }
 
-#seatsDiagram td {
+#seatsDiagram td,
+p.selected,
+p.notAvailable {
     padding: 0.5rem;
     text-align: center;
     margin: 0.3rem;
@@ -244,7 +288,12 @@ table.selected__table {
     border-radius: 5px;
 }
 
-#seatsDiagram td.selected {
+p.selected,p.notAvailable {
+    display: block;
+}
+
+#seatsDiagram td.selected,
+p.selected {
     background-color: var(--nav-red, greenyellow);
     color: var(--nav-white, black);
     -webkit-animation-name: rubberBand;
@@ -254,9 +303,12 @@ table.selected__table {
 }
 
 #seatsDiagram td.notAvailable,
-#displaySeats td.notAvailable {
+p.notAvailable {
     color: white;
-    background-color: #db2619;
+    background-color: #18a30b;
+    cursor: not-allowed;
+    user-select: none;
+    pointer-events: none;
 }
 
 #seatsDiagram td:not(.space, .notAvailable):hover {
@@ -383,5 +435,108 @@ table.selected__table {
 
     .book__form {
         max-height: none;
+    }
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal__content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: animateModal;
+    animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@keyframes animateModal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        /* top: 300px; */
+        opacity: 1;
+    }
+}
+
+.modal__header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+    font-size: 24px;
+    position: relative;
+}
+
+/* Modal Body */
+.modal__body {
+    padding: 2px 16px;
+    font-size: 20px;
+}
+
+.modal__body--span {
+    font-weight: 700;
+}
+
+/* The Close Button */
+.modal__header--close {
+    color: white;
+    /* float: right; */
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 0.2rem 0.1rem 0.4rem;
+    font-size: 28px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.modal__header--close:hover,
+.modal__header--close:focus {
+    color: #5cb85c;
+    background-color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal__body--col {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .modal__header {
+        font-size: 1.2rem;
+    }
+
+    .modal__body {
+        font-size: 1rem;
     }
 }

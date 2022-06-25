@@ -12,10 +12,8 @@ include_once "backend/routes.php";
 
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/book_online.css">
-    <link rel="stylesheet" href="node_modules/dialog-polyfill/dist/dialog-polyfill.css">
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/book_online.js" async></script>
-    <script src="node_modules/dialog-polyfill/dist/dialog-polyfill.js" async></script>
     <link rel="icon" href="img/title.jpeg" type="image/x-icon">
 </head>
 
@@ -65,38 +63,6 @@ include_once "backend/routes.php";
                     <img src="img/congestion.jpg" alt="picture of congested line" class="hero__img">
                 </div>
             </section> -->
-
-
-            <script>
-                // const destination = document.querySelector('#destination'),
-                //     departure = document.querySelector('#departure'),
-                //     errorMsg = document.querySelector('.error__msg'),
-                //     routeCheck = () => {
-                //         $('.error__msg').hide();
-
-                //         if (departure.value === destination.value) {
-                //             $('.error__msg').show().text('You entered the same places');
-                //             return;
-                //         }
-
-                //         $.ajax({
-                //             url: 'backend/routes.php',
-                //             method: 'POST',
-                //             data: {
-                //                 destination: destination.value,
-                //                 departure: departure.value,
-                //                 searchRoute: true
-                //             },
-                //             success: (result) => {
-                //                 console.log(result)
-                //             },
-                //             error: () => {
-                //                 console.log('Working so far...')
-                //             }
-                //         })
-                //     }
-            </script>
-
 
             <section class="book">
                 <!-- <form action="backend/book_ticket.php" method="post" class="book__form"> -->
@@ -148,25 +114,18 @@ include_once "backend/routes.php";
                     </div>
 
                 </div>
-                <!-- <button class="book__btn" type="submit" name="book-ticket">Proceed</button> -->
-                <!-- </form> -->
+
             </section>
 
-            <!-- <div class="book__form--box">
-                <input type="number" name="seats" id="seats" value="1" class="book__form--input" min="1" max="10">
-                <label for="seats" class="book__form--label">Number of Seats</label>
-            </div> -->
+            <div class="book__form--col">
+                <p class="book__form--title">Choose Seats</p>
+                <button id="myBtn" class="book__form--col__btn"><img src="img/icons8-help-32.png" alt="help icon"></button>
+            </div>
 
-            <!-- <div class="book__form--box">
-                <input type="number" name="total-cost" id="total-cost" class="book__form--input" readonly>
-                <label for="total-cost" class="book__form--label">Total Cost</label>
-            </div> -->
+            <style>
 
-            <script>
+            </style>
 
-            </script>
-
-            <p class="book__form--title">Choose Seats</p>
             <section class="tables">
                 <section class="tables__col">
                     <table id="seatsDiagram">
@@ -280,137 +239,44 @@ include_once "backend/routes.php";
 
     <div class="error__msg" id="error-msg">
         <div class="error__msg--text"></div>
-        <!-- <span class="error__msg--span">&times;</span> -->
     </div>
 
-    <style>
-        #error-msg {
-            background-color: black;
-            color: white;
-            padding: 1em;
-            max-width: 200px;
 
-            position: sticky;
-            bottom: 10vh;
-            left: 80vw;
-            display: none;
-            z-index: 10;
-        }
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
 
-        .error__msg--span {
-            font-size: 1.2rem;
-            position: absolute;
-            left: 70%;
-            bottom: 50%;
-            padding: 0.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+        <!-- Modal content -->
+        <div class="modal__content">
+            <div class="modal__header">
+                <span class="modal__header--close">&times;</span>
+                <h2>Help</h2>
+            </div>
+            <div class="modal__body">
+                <p class="modal__body--text">Explanations of the Coloring of Seats:</p>
+                <!-- <p>Some other text...</p> -->
 
-        .error__msg--span:hover {
-            color: black;
-            background-color: white;
-        }
-    </style>
+                <div class="modal__body--col">
+                    <p class="notAvailable">1</p>
+                    <span> => Seat is Already Booked</span>
+                </div>
+                <div class="modal__body--col">
+                    <p class="selected">2</p>
+                    <span> => Seat is Selected</span>
+                </div>
+
+                <br>
+
+                <p class="modal__body--text">
+                    <span class="modal__body--span">Note: </span>
+                    Changing the Route or Departure Date refreshes the Seats and Tickets-Chosen Tables
+                </p>
+
+            </div>
+        </div>
+
+    </div>
 
     <script src="scripts/nav.js"></script>
-    <script>
-        // Selecting Seats
-        const seatDiagram = document.querySelector("#seatsDiagram"),
-            seatCost = document.querySelector("#seatCost"),
-            chosenSeats = document.querySelector("#chosenSeats");
-        let numberOfSeats = 0;
-        var seatsChosen = [];
-
-
-        const updateCostUp = () => {
-            numberOfSeats++;
-            seatCost.innerHTML = numberOfSeats * cost.value;
-        }
-
-        const updateCostDown = () => {
-            numberOfSeats--;
-            seatCost.innerHTML = numberOfSeats * cost.value;
-        }
-
-        const displayTable = () => {
-            if (chosenSeats.rows.length == 0)
-                document.querySelector('.selected__table').style.display = 'none'
-            else
-                document.querySelector('.selected__table').style.display = 'table'
-        }
-
-        const chooseSeat = (evt) => {
-            if (!evt.target.className.includes('selected')) {
-                evt.target.classList.toggle("selected");
-                updateCostUp();
-                seatsChosen.push(evt.target.innerHTML)
-                // console.log(seatsChosen)
-                $('#chosenSeats').append(`<tr id="seat_${evt.target.innerHTML}"><td>${evt.target.innerHTML}</td><td>${cost.value}</td><td><button class="selected__table--btn" onclick="$('#seat_${evt.target.innerHTML}').remove();$('#seat-${evt.target.innerHTML}').removeClass('selected');updateCostDown(); displayTable();">Remove</button></td>`)
-            } else {
-                seatsChosen.splice(seatsChosen.indexOf(evt.target.innerHTML), 1);
-                // console.log(seatsChosen)
-                $(`#seat_${evt.target.innerHTML}`).remove();
-                $(`#seat-${evt.target.innerHTML}`).removeClass('selected');
-                updateCostDown();
-            }
-
-            displayTable();
-        }
-
-        const allSeats = document.querySelectorAll('#seatsDiagram td:not(.space, .notAvailable)');
-        allSeats.forEach(link => {
-            link.addEventListener('click', chooseSeat)
-        });
-
-        const bookTicket = () => {
-
-            $('#error-msg').hide();
-
-            if (seatsChosen.length == 0) {
-                $('.error__msg--text').text('No Seats Chosen');
-                $('#error-msg').show().delay(5000).fadeOut();
-                return;
-            }
-
-            var fname = $("#fname").val().trim();
-            var lname = $("#lname").val().trim();
-            var tel_no = $('#tel-no').val().trim();
-            var id_no = $("#id-no").val().trim();
-            var cost = $("#cost").val().trim();
-            var route = $("#route").val().trim();
-            var dep_date = $('#dep-date').val();
-            var totalCost = $('#seatCost').text();
-
-            $.ajax({
-                method: 'POST',
-                url: 'backend/book_ticket.php',
-                data: {
-                    'fname': fname,
-                    'lname': lname,
-                    'id_no': id_no,
-                    'tel_no': tel_no,
-                    'cost': cost,
-                    'total_cost': totalCost,
-                    'route': route,
-                    'seats': seatsChosen ?? [],
-                    'dep_date': dep_date,
-                    'book-ticket': true
-                },
-                success: (result) => {
-                    var resp = JSON.parse(result);
-                    if (resp.message == 1)
-                        window.location.href = 'redirect.php?id='.resp.id;
-                    else {
-                        $('.error__msg--text').text('Error');
-                        $('#error-msg').show().delay(5000).fadeOut();
-                    }
-                }
-            })
-        };
-
-        $('#book-ticket').on('click', bookTicket);
-    </script>
 </body>
 
 </html>
