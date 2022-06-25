@@ -42,7 +42,36 @@ body {
 .intro__links {
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 
     max-width: 300px;
 }
+
+.info__table {
+    width: min(100%, 600px);
+    margin-inline: auto;
+    border-collapse: collapse;
+
+    display: none;
+}
+
+.info__table tr {
+    padding-block: 0.5rem;
+    text-align: center;
+}
+
+.info__table thead th {
+    padding-block: 0.8rem;
+    font-size: 1.3rem;
+}
+
+.info__table thead  {
+    color: white;
+    background-color: black;
+}
+
+.info__table tbody td {
+    border: 1px solid black;
+}
+
+.info__table tbody td:not(.have-id) {font-weight: 700;}
