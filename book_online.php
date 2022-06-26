@@ -12,8 +12,7 @@ include_once "backend/routes.php";
 
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/book_online.css">
-    <script src="scripts/jquery.min.js"></script>
-    <script src="scripts/book_online.js" async></script>
+    <link rel="stylesheet" href="css/toastr.css">
     <link rel="icon" href="img/title.jpeg" type="image/x-icon">
 </head>
 
@@ -46,23 +45,6 @@ include_once "backend/routes.php";
 
     <main class="main">
         <div class="container">
-
-            <!-- <section class="hero">
-                <div class="hero__col">
-                    <h1 class="hero__title">Book Online</h1>
-                    <p class="hero__description">
-                        Want to avoid queues like this at your departure point, causing you hours of delay as you travel
-                        around the country? <br><br>
-                        Book a Ticket online and avoid all the hassle! <br><br>
-                        Add Details and Book Ticket to your Preferred
-                        Destination
-                    </p>
-                </div>
-
-                <div class="hero__col">
-                    <img src="img/congestion.jpg" alt="picture of congested line" class="hero__img">
-                </div>
-            </section> -->
 
             <section class="book">
                 <!-- <form action="backend/book_ticket.php" method="post" class="book__form"> -->
@@ -119,7 +101,7 @@ include_once "backend/routes.php";
 
             <div class="book__form--col">
                 <p class="book__form--title">Choose Seats</p>
-                <button id="myBtn" class="book__form--col__btn"><img src="img/icons8-help-32.png" alt="help icon"></button>
+                <button id="myBtn" class="book__form--col__btn"><img src="img/help-32.png" alt="help icon"></button>
             </div>
 
             <style>
@@ -276,7 +258,10 @@ include_once "backend/routes.php";
 
     </div>
 
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/toastr.js"></script>
     <script src="scripts/nav.js"></script>
+    <script src="scripts/book_online.js"></script>
 </body>
 
 </html>

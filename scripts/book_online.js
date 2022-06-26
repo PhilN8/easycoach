@@ -1,3 +1,21 @@
+toastr.options = {
+  closeButton: true,
+  debug: false,
+  newestOnTop: false,
+  progressBar: true,
+  positionClass: "toast-top-right",
+  preventDuplicates: true,
+  onclick: null,
+  showDuration: "300",
+  hideDuration: "1000",
+  timeOut: "5000",
+  extendedTimeOut: "1000",
+  showEasing: "swing",
+  hideEasing: "linear",
+  showMethod: "fadeIn",
+  hideMethod: "fadeOut",
+};
+
 const route = document.getElementById("route"),
   cost = document.getElementById("cost"),
   totalcost = document.getElementById("total-cost"),
@@ -34,13 +52,11 @@ const chooseSeat = (evt) => {
     evt.target.classList.toggle("selected");
     updateCostUp();
     seatsChosen.push(evt.target.innerHTML);
-    // console.log(seatsChosen)
     $("#chosenSeats").append(
       `<tr id="seat_${evt.target.innerHTML}"><td>${evt.target.innerHTML}</td><td>${cost.value}</td><td><button class="selected__table--btn" onclick="$('#seat_${evt.target.innerHTML}').remove();$('#seat-${evt.target.innerHTML}').removeClass('selected');updateCostDown(); displayTable();">Remove</button></td>`
     );
   } else {
     seatsChosen.splice(seatsChosen.indexOf(evt.target.innerHTML), 1);
-    // console.log(seatsChosen)
     $(`#seat_${evt.target.innerHTML}`).remove();
     $(`#seat-${evt.target.innerHTML}`).removeClass("selected");
     updateCostDown();
@@ -108,6 +124,7 @@ const CheckCost = () => {
 const changeCost = () => (totalcost.value = cost.value * seats.value);
 
 route.addEventListener("change", CheckCost);
+dep_date.addEventListener("change", CheckBookedSeats);
 
 function SetMinDate() {
   var now = new Date();
@@ -159,30 +176,28 @@ const bookTicket = () => {
   var totalCost = $("#seatCost").text();
 
   if (fname == "" || tel_no == "" || id_no == "") {
-    $(".error__msg--text").text("Fill in the required details");
-    $("#error-msg").show().delay(5000).fadeOut();
+    toastr.error("Fill in the required details", "Missing Info");
 
-    if (fname == "") {
-      $("#fname").focus();
-      $("#fname").scrollIntoView();
+    if (id_no == "") {
+      $("#id-no").focus();
+      document.querySelector("#id-no").scrollIntoView();
     }
 
     if (tel_no == "") {
       $("#tel-no").focus();
-      $("#tel-no").scrollIntoView();
+      document.querySelector("#tel-no").scrollIntoView();
     }
 
-    if (id_no == "") {
-      $("#id-no").focus();
-      $("#id-no").scrollIntoView();
+    if (fname == "") {
+      $("#fname").focus();
+      document.querySelector("#fname").scrollIntoView();
     }
 
     return;
   }
 
   if (seatsChosen.length == 0) {
-    $(".error__msg--text").text("No Seats Chosen");
-    $("#error-msg").show().delay(5000).fadeOut();
+    toastr.error("No Seats Chosen");
     return;
   }
 
@@ -203,12 +218,10 @@ const bookTicket = () => {
     },
     success: (result) => {
       var resp = JSON.parse(result);
-      if (resp.message == 1)
+      if (resp.message == 1) {
+        toastr.success("Transaction Successful");
         window.location.href = "redirect.php?id=" + resp.id;
-      else {
-        $(".error__msg--text").text("Error");
-        $("#error-msg").show().delay(5000).fadeOut();
-      }
+      } else toastr.error("Try again later", "Error");
     },
   });
 };
