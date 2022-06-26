@@ -6,17 +6,10 @@ $route_sql = 'SELECT * FROM tbl_routes';
 $result = $conn->query($route_sql);
 $places = [];
 
-if ($result->num_rows > 0) {
-    while ($rows = $result->fetch_assoc()) {
+if ($result->num_rows > 0)
+    while ($rows = $result->fetch_assoc())
         $routes[] = $rows;
 
-        if (!in_array($rows['destination'], $places))
-            array_push($places, $rows['destination']);
-
-        if (!in_array($rows['departure'], $places))
-            array_push($places, $rows['departure']);
-    }
-}
 
 if (isset($_POST['route_id'])) {
     $route = $_POST['route_id'];
@@ -39,7 +32,7 @@ if (isset($_POST['searchRoute'])) {
         echo json_encode($result);
 }
 
-if (isset($_POST['add-route'])) {
+if (isset($_POST['add_route'])) {
     $destination = $_POST['destination'];
     $departure = $_POST['departure'];
     $price = $_POST['price'];
@@ -48,17 +41,39 @@ if (isset($_POST['add-route'])) {
 
     $result = $conn->query($check_sql)->fetch_assoc();
 
-    var_dump($result);
-
     if (!is_null($result)) {
-        header('location:../admin.php?route=exists');
+        echo json_encode(['message' => 1]);
     } else {
         $add_route_sql = "INSERT INTO `tbl_routes`(`departure`, `destination`, `cost`)
         VALUES('$departure', '$destination', '$price')";
 
-        if ($conn->query($add_route_sql) === TRUE)
-            header('location:../admin.php?route=yes');
-        else
-            header('location:../admin.php?route=no');
+        if ($conn->query($add_route_sql) === TRUE) {
+            $result = $conn->query($route_sql);
+
+            while ($row = $result->fetch_assoc())
+                $allRoutes[] = $row;
+
+            echo json_encode(['message' => 2, $allRoutes]);
+        } else
+            echo json_encode(['message' => 3]);
     }
+}
+
+if (isset($_POST['routes'])) {
+    $result = $conn->query($route_sql);
+    while ($row = $result->fetch_assoc())
+        $routes[] = $row;
+
+    echo json_encode($routes);
+}
+
+if (isset($_POST['new_cost'])) {
+    $new_cost = $_POST['new_cost'];
+    $route_id = $_POST['route'];
+
+    $new_cost_sql = "UPDATE `tbl_routes` SET `cost`=$new_cost WHERE `route_id`=$route_id";
+    if ($conn->query($new_cost_sql) === TRUE)
+        echo json_encode(['message' => 1]);
+    else
+        echo json_encode(['message' => 2]);
 }

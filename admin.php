@@ -5,6 +5,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
 
     include_once 'backend/users.php';
     include_once 'backend/tickets.php';
+    include_once 'backend/routes.php';
 ?>
 
     <!DOCTYPE html>
@@ -18,9 +19,9 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
         <title>Admin Page | Easy Coach Ke</title>
 
         <link rel="stylesheet" href="css/common.css">
+        <link rel="stylesheet" href="css/toastr.css">
         <link rel="stylesheet" href="css/admin.css">
-        <script src="scripts/jquery.min.js" async></script>
-        <script src="scripts/admin.js" async></script>
+
         <link rel="icon" href="img/title.jpeg" type="image/x-icon">
     </head>
 
@@ -161,28 +162,54 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                 </section>
 
                 <section class="routes admin-section animate-opacity" id="routes">
-                    <form action="backend/routes.php" method="post" class="routes__form">
+                    <!-- <form action="backend/routes.php" method="post" class="routes__form"> -->
+                    <div class="routes__div">
+                        <p class="routes__form--title">Routes</p>
+                        <div class="routes__div--table">
+                            <table class="routes__table">
+                                <thead>
+                                    <tr>
+                                        <th>Departure</th>
+                                        <th>Destination</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="routeTable">
+                                    <?php foreach ($routes as $route) {
+                                        $id = $route['route_id']; ?>
+                                        <tr>
+                                            <td><?= $route['departure'] ?></td>
+                                            <td><?= $route['destination'] ?></td>
+                                            <td><?= $route['cost'] ?></td>
+                                            <td><button class="routes__edit--btn" onclick="openModal(<?php echo $id ?>)">Edit</button></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="routes__form">
                         <h2 class="routes__form--title">Add Route</h2>
                         <div class="routes__form--container">
                             <div class="routes__form--box">
                                 <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
                                 <label for="departure" class="routes__form--label">Departure Point</label>
                             </div>
-
                             <div class="routes__form--box">
                                 <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
                                 <label for="destination" class="routes__form--label">Destination</label>
                             </div>
-
                             <div class="routes__form--box">
                                 <input type="text" name="price" id="price" placeholder=" " class="routes__form--input">
                                 <label for="price" class="routes__form--label">Price</label>
                             </div>
                         </div>
+                        <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>
+                    </div>
 
-                        <button class="routes__btn" type="submit" name="add-route">Add</button>
-
-                    </form>
+                    <!-- </form> -->
                 </section>
 
                 <section class="users admin-section animate-opacity" id="users">
@@ -214,6 +241,32 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                 </section>
             </main>
         </div>
+
+        <div class="modal" id="myModal">
+
+            <div class="modal__content">
+                <div class="modal__header">
+                    <p>Enter New Value</p>
+                    <span class="modal__header--close">&times;</span>
+                </div>
+
+                <div class="modal__body">
+                    <div class="routes__form--box">
+                        <input type="number" name="new-cost" id="new-cost" placeholder=" " class="routes__form--input">
+                        <label for="new-cost" class="routes__form--label">Cost</label>
+                    </div>
+                </div>
+
+                <button class="routes__btn" id="submitBtn">Submit</button>
+                <button class="routes__btn float-right" id="cancelBtn">Cancel</button>
+            </div>
+
+        </div>
+
+        <script src="scripts/jquery.min.js"></script>
+        <script src="scripts/toastr.js"></script>
+        <script src="scripts/admin.js"></script>
+
     </body>
 
     </html>
