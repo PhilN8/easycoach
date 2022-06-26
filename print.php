@@ -101,4 +101,4 @@ $pdf->Ln();
 
 $pdf->Cell(100, 10, 'Produce this ticket at the bus station, either printed or electronically');
 
-$pdf->Output('', 'Ticket Info');
+$pdf->Output('', 'Purchase Info ' . $_GET['id'] . ".pdf");

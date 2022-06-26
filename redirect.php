@@ -9,8 +9,6 @@
 
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/redirect.css">
-    <script src="scripts/jquery.min.js"></script>
-    <script src="scripts/nav.js" async></script>
     <link rel="icon" href="img/title.jpeg" type="image/x-icon">
 </head>
 
@@ -54,10 +52,8 @@
                 </p>
 
                 <div class="intro__links">
-                    <!-- <button class="intro__links--btn"><a target="_blank" href="print.php?id=<?= $_GET['id'] ?? 0 ?>">Print</a></button> -->
                     <a class="intro__links--btn" target="_blank" href="print.php?id=<?= $_GET['id'] ?? 0 ?>">Print</a>
-                    <!-- <button class="intro__links--btn"><a href="javascript:void(0)" onclick="purchaseInfo()">Home</a></button> -->
-                    <a class="intro__links--btn" href="javascript:void(0)" onclick="purchaseInfo()">Home</a>
+                    <a class="intro__links--btn" href="index.html">Home</a>
                 </div>
             </section>
 
@@ -105,7 +101,9 @@
         </div>
     </main>
 
-    <script src="scripts/redirect.js" async></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/nav.js"></script>
+    <script src="scripts/redirect.js"></script>
 </body>
 
 </html>
