@@ -73,6 +73,10 @@ allSeats.forEach((link) => {
 });
 
 const CheckBookedSeats = () => {
+  document
+    .querySelectorAll("td.notAvailable")
+    .forEach((seat) => seat.classList.remove("notAvailable"));
+
   $.ajax({
     url: "backend/seats.php",
     method: "POST",
@@ -106,14 +110,14 @@ const CheckCost = () => {
         $("#chosenSeats").empty();
         numberOfSeats = 0;
         seatsChosen = [];
+
         $(".selected__table").fadeOut();
         allSeats.forEach((element) => {
           if (element.className.includes("selected"))
             element.classList.remove("selected");
         });
-
-        CheckBookedSeats();
       }
+      CheckBookedSeats();
     },
     error: () => {
       cost.value = 0;
@@ -152,8 +156,7 @@ const ModalMenu = () => {
 
   btn.addEventListener("click", () => (modal.style.display = "block"));
   closeBtn.addEventListener("click", () => (modal.style.display = "none"));
-  // span.onclick = () => (modal.style.display = "none");
-  // When the user clicks anywhere  outside of the modal, close it
+
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
