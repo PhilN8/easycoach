@@ -6,6 +6,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
     include_once 'backend/users.php';
     include_once 'backend/tickets.php';
     include_once 'backend/routes.php';
+    include_once 'backend/data.php';
 ?>
 
     <!DOCTYPE html>
@@ -82,11 +83,69 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                     <?php } ?>
 
                     <h1>Welcome, <?= $_SESSION['name'] ?? 'User' ?></h1>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Quisquam, odio! Atque optio voluptatem unde totam
-                        vel vero facere asperiores obcaecati!
-                    </p>
+
+                    <div id="status">
+                        <div id="Booking" class="info-box status-item">
+                            <div class="heading">
+                                <h5>Tickets</h5>
+                                <div class="info">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </div>
+                            </div>
+                            <div class="info-content">
+                                <p>Total Tickets</p>
+                                <p class="num" data-target="<?php echo $total_tickets ?>">
+                                    999
+                                </p>
+                            </div>
+                            <a href="javascript:void(0)" onclick="openSection('users')">View More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div id="Bus" class="info-box status-item">
+                            <div class="heading">
+                                <h5>Earnings</h5>
+                                <div class="info">
+                                    <i class="fas fa-bus"></i>
+                                </div>
+                            </div>
+                            <div class="info-content">
+                                <p>Total Earnings</p>
+                                <p class="num" data-target="<?php echo $total_earnings; ?>">
+                                    999
+                                </p>
+                            </div>
+                            <a href="javascript:void(0)" onclick="openSection('history')">View More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div id="Route" class="info-box status-item">
+                            <div class="heading">
+                                <h5>Routes</h5>
+                                <div class="info">
+                                    <i class="fas fa-road"></i>
+                                </div>
+                            </div>
+                            <div class="info-content">
+                                <p>Total Routes</p>
+                                <p class="num" data-target="<?php echo $total_routes ?>">
+                                    999
+                                </p>
+                            </div>
+                            <a href="javascript:void(0)" onclick="openSection('users')">View More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div id="Seat" class="info-box status-item">
+                            <div class="heading">
+                                <h5>Admins</h5>
+                                <div class="info">
+                                    <i class="fas fa-th"></i>
+                                </div>
+                            </div>
+                            <div class="info-content">
+                                <p>Total Admins</p>
+                                <p class="num" data-target="<?php echo $total_admins ?>">
+                                    999
+                                </p>
+                            </div>
+                            <a href="javascript:void(0)" onclick="openSection('users')">View More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="add admin-section animate-opacity" id="add">
@@ -191,21 +250,21 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                         <table class="history__table">
                             <thead>
                                 <tr>
-                                    <th>Ticket ID</th>
-                                    <th>Departed From</th>
-                                    <th>Destination</th>
+                                    <th>Purchase ID</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
                                     <th>Departure Date</th>
-                                    <th>Cost</th>
+                                    <th>Seats</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($tickets as $row) { ?>
+                                <?php foreach ($tickets as $ticket) { ?>
                                     <tr>
-                                        <td><?= $row['ticket_id'] ?></td>
-                                        <td><?= $row['departure'] ?></td>
-                                        <td><?= $row['destination'] ?></td>
-                                        <td><?= $row['departure_date'] ?></td>
-                                        <td><?= $row['cost'] ?></td>
+                                        <td><?= $ticket['purchase_id'] ?></td>
+                                        <td><?= $ticket['first_name'] . " " . $ticket['last_name'] ?></td>
+                                        <td><?= $ticket['tel_no'] ?></td>
+                                        <td><?= $ticket['departure_date'] ?></td>
+                                        <td><?= $ticket['seats'] ?></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -229,13 +288,12 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                                     </tr>
                                 </thead>
                                 <tbody id="routeTable">
-                                    <?php foreach ($routes as $route) {
-                                        $id = $route['route_id']; ?>
+                                    <?php foreach ($routes as $route) { ?>
                                         <tr>
                                             <td><?= $route['departure'] ?></td>
                                             <td><?= $route['destination'] ?></td>
                                             <td><?= $route['cost'] ?></td>
-                                            <td><button class="routes__edit--btn" onclick="openModal(<?php echo $id ?>)">Edit</button></td>
+                                            <td><button class="routes__edit--btn" onclick="openModal(<?= $route['route_id'] ?>)">Edit</button></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
