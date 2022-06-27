@@ -11,3 +11,13 @@ if ($result->num_rows > 0) {
         $all_ids[] = $rows['user_id'];
     }
 }
+
+if (isset($_POST['users'])) {
+    $result = $conn->query($user_sql);
+
+    if ($result->num_rows > 0)
+        while ($rows = $result->fetch_assoc())
+            $allUsers[] = $rows;
+
+    echo json_encode($allUsers);
+}

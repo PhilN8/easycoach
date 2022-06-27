@@ -95,8 +95,11 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
 
                     <form action="backend/edit_user.php" class="profile__form" id="editForm" method="POST">
 
-                        <label for="edit-user">Choose User</label>
-                        <input type="text" class="w3-input" list="all-users" id="edit-user" name="userID" onchange="noDelete(<?= $_SESSION['User-ID'] ?>)">
+                        <div class="routes__form--box">
+                            <input type="text" class="routes__form--input" placeholder=" " list="all-users" id="edit-user" name="edit-user">
+                            <label for="edit-user" class="routes__form--label">Choose User</label>
+                        </div>
+
                         <datalist id="all-users">
 
                             <?php foreach ($user_records as $row) { ?>
@@ -105,25 +108,31 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
 
                         </datalist><br>
 
-                        <label for="edit-option">Choose column to edit</label>
-                        <select name="options" id="edit-option" class="w3-input" onchange="changeOpt()">
-                            <option value="first_name">First Name</option>
-                            <option value="last_name">Last Name</option>
-                            <option value="user_name">User Name</option>
-                            <option value="tel_no">Tel Number</option>
-                            <option value="id_no">ID Number</option>
-                            <option value="password">Password</option>
-                            <option value="gender">Gender</option>
-                        </select><br>
+                        <div class="routes__form--box">
+                            <select name="option" id="option" class="routes__form--input" onchange="changeOpt()">
+                                <option value="first_name">First Name</option>
+                                <option value="last_name">Last Name</option>
+                                <option value="user_name">User Name</option>
+                                <option value="tel_no">Tel Number</option>
+                                <option value="id_no">ID Number</option>
+                                <option value="password">Password</option>
+                                <option value="gender">Gender</option>
+                            </select>
+                            <label for="option" class="routes__form--label">Choose column to edit</label>
+                        </div><br>
 
-                        <label for="new-val">New Value</label>
-                        <input type="text" name="new-update" placeholder="Enter new value..." id="new-val" class="w3-input"><br>
+                        <div class="routes__form--box">
+                            <input type="text" name="new-update" id="new-update" placeholder=" " class="routes__form--input">
+                            <label for="new-update" class="routes__form--label">New Value</label>
+                        </div><br>
 
-                        <label for="gender-option">Enter a new option</label>
-                        <select name="gender" id="gender-option" disabled="disabled" class="w3-input">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
+                        <div class="routes__form--box">
+                            <select name="gender" id="gender" disabled="disabled" class="routes__form--input" aria-readonly="true">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <label for="gender" class="routes__form--label">Gender</label>
+                        </div>
 
                         <button class="w3-button w3-center w3-section complete__btn" type="submit" name="edit">Complete</button>
                         <button disabled class="w3-button w3-center w3-right w3-section delete__btn" type="submit" name="delete-user" id="delete-user">Delete</button>
@@ -214,26 +223,26 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
 
                 <section class="users admin-section animate-opacity" id="users">
                     <h2 class="users__title">View Users</h2>
-                    <table class="users__table" id="all-users">
+                    <table class="users__table" style="overflow-x: scroll;">
                         <thead>
                             <tr>
                                 <th>User ID</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>User Name</th>
-                                <th>Gender</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="w3-animate-opacity">
+                        <tbody class="w3-animate-opacity" id="userTable">
                             <?php
-                            foreach ($user_records as $row) {
+                            foreach ($user_records as $user) {
                             ?>
                                 <tr>
-                                    <td><?= $row['user_id'] ?></td>
-                                    <td><?= ($row['first_name'] != "") ? $row['first_name'] : "-" ?></td>
-                                    <td><?= ($row['last_name'] != "") ? $row['last_name'] : "-" ?></td>
-                                    <td><?= $row['user_name'] ?></td>
-                                    <td><?= ucfirst($row['gender']) ?></td>
+                                    <td><?= $user['user_id'] ?></td>
+                                    <td><?= ($user['first_name'] != "") ? $user['first_name'] : "-" ?></td>
+                                    <td><?= ($user['last_name'] != "") ? $user['last_name'] : "-" ?></td>
+                                    <td><?= $user['user_name'] ?></td>
+                                    <td><button class="users__edit--btn" onclick="editUser(<?= $user['user_id'] ?>)">Edit</button></td>
                                 </tr>
                             <?php } ?>
                         </tbody>

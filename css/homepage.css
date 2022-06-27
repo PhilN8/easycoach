@@ -77,7 +77,7 @@ section.home-section:not(.intro) {
 .intro__messages--failed {
     padding: 0.2em 1rem;
     background-color: #4CAF50;
-    color: var(--succes-clr, white);
+    color: white;
     position: relative;
     margin-bottom: 1.5rem;
     text-align: center;
@@ -126,7 +126,7 @@ section.home-section:not(.intro) {
 }
 
 .ticket__form--box {
-    align-items: center;
+    /* align-items: center; */
     margin-bottom: 0.9375rem;
 	width: calc(100% / 2 - 1.25rem);
 }

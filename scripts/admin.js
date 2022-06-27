@@ -17,6 +17,7 @@ toastr.options = {
 };
 
 let routeID = 0;
+let userID = 0;
 
 const menuToggle = document.querySelector(".menu-toggle");
 const sidebar = document.querySelector(".sidebar");
@@ -43,14 +44,14 @@ const openSection = (section) => {
 };
 
 const changeOpt = () => {
-  var option = $("#edit-option").val();
+  var option = $("#options").val();
 
   if (option == "gender") {
-    $("#gender-option").prop("disabled", false);
-    $("#new-val").prop("disabled", true);
+    $("#gender").prop("disabled", false);
+    $("#new-update").prop("disabled", true);
   } else {
-    $("#gender-option").prop("disabled", true);
-    $("#new-val").prop("disabled", false);
+    $("#gender").prop("disabled", true);
+    $("#new-update").prop("disabled", false);
   }
 };
 
@@ -71,6 +72,8 @@ const allRoutes = () => {
     },
   });
 };
+
+// ADD A ROUTE
 
 const addRoute = () => {
   var departure = $("#departure").val().trim();
@@ -141,6 +144,8 @@ const addRoute = () => {
   });
 };
 
+// MODAL MENU
+
 var modal = document.getElementById("myModal");
 
 const openModal = (editID) => {
@@ -164,9 +169,7 @@ const ModalMenu = () => {
 
 ModalMenu();
 
-// document
-//   .querySelectorAll(".routes__edit--btn")
-//   .forEach((el) => el.addEventListener("click", openModal));
+// EDIT ROUTE COST
 
 const editCost = () => {
   var newCost = $("#new-cost").val();
@@ -197,6 +200,86 @@ const editCost = () => {
   });
 };
 
-// document.querySelector("#submitBtn").addEventListener("click", editCost);
 $("#submitBtn").on("click", editCost);
 document.querySelector("#cancelBtn").addEventListener("click", closeModal);
+
+// EDIT USERS
+
+const allUsers = () => {
+  $.ajax({
+    url: "backend/users.php",
+    method: "POST",
+    data: { users: true },
+    success: (result) => {
+      var resp = JSON.parse(result);
+      $("#userTable").empty();
+
+      resp.forEach((el) => {
+        $("#userTable").append(
+          `<tr><td>${el.user_id}</td><td>${el.first_name}</td><td>${el.last_name}</td><td>${el.user_name}</td><td><button class="users__edit--btn" onclick="editUser(${el.user_id})">Edit</button></td></tr>`
+        );
+      });
+    },
+    error: () => {
+      toastr.error("Something went wrong");
+    },
+  });
+};
+
+const editUser = (userID) => {
+  openSection("profile");
+  $("#edit-user").val(userID);
+  $("#new-update").focus();
+};
+
+$("#editForm").submit((evt) => {
+  evt.preventDefault();
+
+  var value = $("#edit-user").val();
+  var option = $("#option").val();
+  var new_info =
+    option == "gender"
+      ? $("#gender").val().trim()
+      : $("#new-update").val().trim();
+
+  if (isNaN(value)) {
+    toastr.error("Not a Valid User");
+    $("#edit-user").focus();
+    return;
+  }
+
+  if (option == "id_no" || option == "tel_no") {
+    if (isNaN(new_info)) {
+      toastr.error("Not a Valid Number");
+      $("#new-update").focus();
+      return;
+    }
+  }
+
+  $.ajax({
+    method: "POST",
+    url: "backend/edit_user.php",
+    data: {
+      new_info: new_info,
+      value: value,
+      option: option,
+      edit: true,
+    },
+    success: (result) => {
+      if (result.message == 1)
+        toastr.error("User Not in System", "Invalid User ID");
+
+      if (result.message == 2) toastr.warning("User Name Already Exists");
+
+      if (result.message == 3) {
+        toastr.success(`${result.info} Updated`, "Success");
+        allUsers();
+      }
+
+      if (result.message == 4) toastr.error("Try again later", "Error");
+    },
+    error: () => {
+      toastr.error("Something went wrong");
+    },
+  });
+});

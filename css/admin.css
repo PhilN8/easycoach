@@ -83,10 +83,6 @@ input[type=number] {
     margin-bottom: 0.5rem;
 }
 
-/* .content p, label {
-    color: var(--nav-black, black);
-} */
-
 .menu-toggle {
     display: none;
     position: fixed;
@@ -166,6 +162,7 @@ input[type=number] {
         height: 100vh;
         max-width: 300px;
         transition: 0.2s linear;
+        z-index: 10;
     }
 
     .sidebar.is-active {
@@ -339,6 +336,16 @@ section.admin-section:not(.intro) {
     font-size: 0.9rem;
 }
 
+.routes__form--input:disabled {
+    border-color: #888;
+    cursor: not-allowed;
+    user-select: none;
+}
+
+.routes__form--input:disabled ~ .routes__form--label {
+    color: #888;
+}
+
 .routes__btn {
     text-decoration: none;
     padding: 7px 15px;
@@ -362,7 +369,8 @@ section.admin-section:not(.intro) {
     margin-inline: auto;
 }
 
-.routes__edit--btn {
+.routes__edit--btn,
+.users__edit--btn {
     border: none;
     outline: none;
     padding: 5px 10px;
@@ -373,7 +381,8 @@ section.admin-section:not(.intro) {
     border-radius: 4px;
 }
 
-.routes__edit--btn:hover {
+.routes__edit--btn:hover,
+.users__edit--btn:hover {
     background-color: #1967b6;
 }
 

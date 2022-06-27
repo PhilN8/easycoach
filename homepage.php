@@ -205,7 +205,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 2) {
                         </div>
 
                         <input type="hidden" name="userID" value="<?= $_SESSION['user_id'] ?>">
-                        <button class="complete__btn" type="submit" name="book-ticket">Proceed</button>
+                        <button class="complete__btn" type="submit" name="book-ticket-user">Proceed</button>
                     </form>
 
 

@@ -41,32 +41,52 @@ function updateSession($option, $new_info)
         $_SESSION['user_name'] = $new_info;
 }
 
+function returnJson($data)
+{
+    ob_clean();
+    header_remove();
+    header('Access-Control-Allow-Origin: *');
+    header("Content-type: application/json; charset=utf-8");
+    http_response_code(200);
+    echo json_encode($data);
+    exit();
+}
+
 if (isset($_POST['edit'])) {
-    $val = $_POST['userID'];
-    $option = $_POST['options'];
-    $new_info = $_POST['gender'] ?? $_POST['new-update'];
+    $value = $_POST['value'];
+    $option = $_POST['option'];
+    $new_info = $_POST['new_info'];
 
-    if (!in_array($val, $all_ids))
-        header('location:../admin.php?error=Invalid+User+ID&user_id=' . $val);
-    else {
-        $result = sanitize($option, $new_info);
+    $json = [];
 
-        if (!is_string($result)) {
-            if ($option == 'password')
-                $new_info = md5($new_info);
 
-            $sql = "UPDATE tbl_users SET $option='$new_info' WHERE user_id = $val";
-            if ($option == 'tel_no' or $option == 'id_no')
-                $sql = "UPDATE tbl_users SET $option=$new_info WHERE user_id = $val";
+    if (!in_array($value, $all_ids)) {
+        $json = ['message' => 1];
+    } else {
+        if ($option == 'user_name')
+            if (checkIfExists($conn, $new_info) == false)
+                returnJson(['message' => 2]);
 
-            if ($conn->query($sql) === TRUE) {
-                updateSession($option, $new_info);
-                header('location:../admin.php?Message=Success&user_id=' . $val . '&update=' . $option);
-            } else
-                header('location:../admin.php?Message=Failed&user_id=' . $val);
+
+        if ($option == 'password')
+            $new_info = md5($new_info);
+
+        $sql = "UPDATE tbl_users SET $option='$new_info' WHERE `user_id` = $value";
+        if ($option == 'tel_no' or $option == 'id_no')
+            $sql = "UPDATE tbl_users SET $option=$new_info WHERE `user_id` = $value";
+
+        if ($conn->query($sql) === TRUE) {
+            updateSession($option, $new_info);
+
+            $json = [
+                'message' => 3,
+                'info' => ucwords(str_replace("_", " ", $option))
+            ];
         } else
-            header('location:../admin.php?error=' . $result . '&user_id=' . $val);
+            $json = ['message' => 4];
     }
+
+    returnJson($json);
 }
 
 if (isset($_POST['edit-personal'])) {
