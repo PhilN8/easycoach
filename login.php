@@ -33,7 +33,7 @@ if (!isset($_SESSION['user_id'])) {
                     <li class="nav__item"><a href="about-us.html" class="nav__link">About Us</a></li>
                     <li class="nav__item"><a href="routes.html" class="nav__link">Routes</a></li>
                     <li class="nav__item"><a href="services.html" class="nav__link">Services</a></li>
-                    <li class="nav__item"><a href="#" class="nav__link nav__link--btn">Book Online</a></li>
+                    <li class="nav__item"><a href="book_online.php" class="nav__link nav__link--btn">Book Online</a></li>
                 </ul>
             </nav>
 

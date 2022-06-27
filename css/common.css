@@ -240,6 +240,28 @@ a.nav__link:hover {
     margin-bottom: 0.5rem;
 }
 
+.footer__col--list {
+    list-style: none;
+}
+
+.footer__col--text {
+    text-align: justify;
+}
+
+.footer__col--link {
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s;
+}
+
+.footer__col--item + .footer__col--item {
+    margin-top: 0.75rem;
+}
+
+.footer__col--link:hover {
+    color: dodgerblue;
+}
+
 @media (min-width: 900px) {
     .footer-container {
         display: flex;
@@ -248,11 +270,13 @@ a.nav__link:hover {
 
     .footer__col {
         width: 100%;
+        text-align: center;
     }
 
     .footer__col--contact {
         margin-bottom: 0.5rem;
         padding-bottom: 0.2rem;
-        border-bottom: 1px solid white;
+        text-align: left;
+        /* border-bottom: 1px solid white; */
     }
 }

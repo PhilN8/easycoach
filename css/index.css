@@ -41,6 +41,12 @@
 }
 
 .services {
+    background-color: var(--nav-red);
+    color: var(--nav-white);
+    padding-block: 1.5rem;
+}
+
+.services-container {
     margin-block: 2rem;
     text-align: center;
     display: flex;
@@ -74,20 +80,25 @@
 .services__col--link {
     text-decoration: none;
     padding: 7px 15px;
-    background-color: var(--nav-red);
-    color: var(--nav-white);
+    background-color: var(--nav-white);
+    color: var(--nav-red);
     border-radius: 4px;
+    font-weight: 700;
 
     margin-top: 1em;
 
-    border: 1px solid var(--nav-red);
+    border: 1px solid var(--nav-white);
     transition: all 0.3s ease-out;
 }
 
 .services__col--link:hover {
-    background-color: var(--nav-white);
-    color: var(--nav-red);
-    border-color: var(--nav-red);
+    background-color: var(--nav-black);
+    color: var(--nav-white);
+    border-color: var(--nav-black);
+}
+
+.inquiry {
+    padding-block: 3rem;
 }
 
 .inquiry__text--title {
@@ -137,7 +148,7 @@
 }
 
 .inquiry__col--comment {
-    margin-block: 2em;
+    margin-block: 2em 0;
 }
 
 .book__form--box {
@@ -183,7 +194,7 @@
 }
 
 @media screen and (min-width: 40em) {
-    .services {
+    .services-container {
         flex-direction: row;
         justify-content: space-around;
     }
@@ -198,11 +209,9 @@
         margin-inline: auto;
     }
 
-    .inquiry {
+    .inquiry-container {
         display: flex;
         gap: 2em;
-
-        margin-block: 3rem;
     }
 
     .inquiry__col {
@@ -215,7 +224,7 @@
 }
 
 @media screen and (min-width: 750px) {
-    .hero {
+    .hero-container {
         display: flex;
         gap: 2em;
         justify-content: space-around;
