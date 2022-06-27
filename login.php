@@ -14,6 +14,7 @@ if (!isset($_SESSION['user_id'])) {
 
         <link rel="stylesheet" href="css/common.css">
         <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/toastr.css">
         <link rel="icon" href="img/title.jpeg" type="image/x-icon">
 
     </head>
@@ -49,7 +50,7 @@ if (!isset($_SESSION['user_id'])) {
         <section class="login animate-opacity">
             <div class="container">
 
-                <form action="backend/process_login.php" method="post" class="login__form">
+                <form action="backend/process_login.php" method="post" class="login__form" id="loginForm">
                     <h2 class="login__form--title">Login</h2>
 
                     <?php if (isset($_GET['error'])) { ?>
@@ -60,19 +61,21 @@ if (!isset($_SESSION['user_id'])) {
                         <p class="success"><?php echo $_GET['success']; ?> <span onclick="this.parentElement.style.display = 'none';">&times;</span></p>
                     <?php } ?>
 
-                    <?php if (isset($_GET['logout'])) { ?>
+                    <!-- <?php if (isset($_GET['logout'])) { ?>
                         <p class="logout"><?php echo 'Logged out successfully'; ?> <span onclick="this.parentElement.style.display = 'none';">&times;</span></p>
-                    <?php } ?>
+                    <?php } ?> -->
 
-                    <label for="uname" class="login__form--label">User Name</label><br>
-                    <input type="text" placeholder="User Name" name="uname" class="login__form--input w3-input" id="uname"><br>
+                    <div class="login__form--box">
+                        <input type="text" placeholder=" " name="uname" id="uname" class="login__form--input">
+                        <label for="uname" class="login__form--label">User Name</label><br>
+                    </div>
 
-                    <label for="password" class="login__form--label">Password</label><br>
-                    <input type="password" id="password" name="password" placeholder="Password" class="login__form--input w3-input"><br>
+                    <div class="login__form--box">
+                        <input type="password" id="password" name="password" placeholder=" " class="login__form--input w3-input"><br>
+                        <label for="password" class="login__form--label">Password</label>
+                    </div>
 
                     <button type="submit" class="login__form--btn">Login</button>
-
-                    <p class="login__form--text">New to EasyCoach? <a href="signup.php" class="login__form--link">Click Here</a></p>
                 </form>
 
             </div>
@@ -114,10 +117,16 @@ if (!isset($_SESSION['user_id'])) {
                     </section>
 
                     <section class="footer__col">
-                        <p class="footer__col--title">Popular Destinations</p>
-                        <p class="footer__col--text">
-                            Kisii | Kisumu | Ugunja | Maseno | Bondo | Nyamira | Migori | Mbale | Kericho | Kakamega | Rongo | Oyugis | Awendo | Sotik | Busia | Narok | Sirare | Bumala | Siaya | Homabay | Keroka and more...
+                        <p class="footer__col--title">
+                            Quick Links
                         </p>
+
+                        <ul class="footer__col--list">
+                            <li class="footer__col--item"><a href="login.php" class="footer__col--link">Admin Login</a></li>
+                            <li class="footer__col--item"><a href="services.html" class="footer__col--link">Services</a></li>
+                            <li class="footer__col--item"><a href="about-us.html" class="footer__col--link">About Us</a></li>
+                            <li class="footer__col--item"><a href="routes.html" class="footer__col--link">Routes</a></li>
+                        </ul>
                     </section>
                 </div>
 
@@ -129,7 +138,10 @@ if (!isset($_SESSION['user_id'])) {
             </p>
         </footer>
 
+        <script src="scripts/jquery.min.js"></script>
+        <script src="scripts/toastr.js"></script>
         <script src="scripts/nav.js"></script>
+        <script src="scripts/login.js"></script>
 
     </body>
 

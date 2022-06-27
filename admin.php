@@ -275,6 +275,12 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
         <script src="scripts/jquery.min.js"></script>
         <script src="scripts/toastr.js"></script>
         <script src="scripts/admin.js"></script>
+        <script>
+            <?php if (isset($_SESSION['msg'])) : ?>
+                toastr.success("<?= $_SESSION['msg'] ?>")
+            <?php unset($_SESSION['msg']);
+            endif ?>
+        </script>
 
     </body>
 

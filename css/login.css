@@ -4,13 +4,14 @@
 }
 
 .login__form {
-    max-width: 500px;
-	border: 1px solid var(--nav-black);
-    box-shadow: 0 0 5px;
-	padding: 30px;
+    width: min(100%, 500px);
+	border: 2px solid var(--nav-black);
+    /* box-shadow: 0 0 5px; */
+	padding: 1.875rem;
 	background: #fff;
 	border-radius: 15px;
     margin-inline: auto;
+    min-height: 50vh;
 }
 
 .login__form--title {
@@ -28,43 +29,13 @@
 	background: linear-gradient(135deg, var(--nav-red), var(--nav-white));
 }
 
-.login__form--input {
-    display: block;
-	border: 2px solid var(--nav-black);
-	width: 95%;
-	padding: 10px;
-	margin: 10px auto;
-	border-radius: 5px;
-}
-
-.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%;font-size: 1rem;}
-.login__form--text {
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.login__form--link {
-    text-decoration: none;
-    color: #444;
-    font-weight: 700;
-}
-
-.login__form--link:hover {
-    text-decoration: underline;
-    color: dodgerblue;
-}
-
-
 .login__form--label {
     color: var(--nav-black);
 	font-size: 18px;
 }
 
 .login__form--btn {
-    float: none;
-    background: #555;
 	padding: 10px 15px;
-	color: #fff;
 	border-radius: 5px;
 	margin-left: 10px;
     outline: none;
@@ -78,6 +49,44 @@
 
 .login__form--btn:hover {
     opacity: 0.7;
+}
+
+.login__form--box {
+    margin-bottom: 0.9375rem;
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+
+.login__form--input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 0.625rem;
+    outline: none;
+    padding: 0.625rem;
+    padding-left: 1rem;
+    font-size: 1.1rem;
+}
+
+.login__form--label {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    color: var(--nav-black, black);
+    text-transform: capitalize;
+    font-size: 1rem;
+    transition: top 0.3s;
+    padding: 0 5px;
+    cursor: text;
+}
+
+.login__form--input:focus ~ .login__form--label,
+.login__form--input:not(:placeholder-shown).login__form--input:not(:focus) ~ .login__form--label {
+    top: -12px;
+    background-color: white;
+    font-size: 0.9rem;
 }
 
 p.error {

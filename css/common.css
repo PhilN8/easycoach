@@ -255,7 +255,7 @@ a.nav__link:hover {
 }
 
 .footer__col--item + .footer__col--item {
-    margin-top: 0.75rem;
+    margin-top: 0.6rem;
 }
 
 .footer__col--link:hover {

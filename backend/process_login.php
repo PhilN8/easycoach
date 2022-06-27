@@ -10,45 +10,41 @@ function validate($data)
     return $data;
 }
 
+function returnJson($data)
+{
+    ob_clean();
+    header_remove();
+    header('Access-Control-Allow-Origin: *');
+    header("Content-type: application/json; charset=utf-8");
+    http_response_code(200);
+    echo json_encode($data);
+    exit();
+}
+
 if (isset($_POST['uname']) && isset($_POST['password'])) {
 
     $uname = validate($_POST['uname']);
     $pass = validate($_POST['password']);
 
-    if (empty($uname)) {
-        header("Location: ../login.php?error=User Name is required");
-        exit();
-    } else if (empty($pass)) {
-        header("Location: ../login.php?error=Password is required");
-        exit();
-    } else {
-        // hashing the password
-        $pass = md5($pass);
+    // hashing the password
+    $pass = md5($pass);
 
+    $sql = "SELECT * FROM `tbl_users` WHERE `user_name`='$uname' AND `password`='$pass'";
 
-        $sql = "SELECT * FROM tbl_users WHERE user_name='$uname' AND password='$pass'";
+    $result = mysqli_query($conn, $sql);
 
-        $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        if ($row['user_name'] === $uname && $row['password'] === $pass) {
+            $_SESSION['name'] = $row['first_name'];
+            $_SESSION['user_name'] = $row['user_name'];
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['role'] = $row['role'];
+            $_SESSION['msg'] = "Login Successful";
 
-        if (mysqli_num_rows($result) === 1) {
-            $row = mysqli_fetch_assoc($result);
-            if ($row['user_name'] === $uname && $row['password'] === $pass) {
-                $_SESSION['name'] = $row['first_name'];
-                $_SESSION['user_name'] = $row['user_name'];
-                $_SESSION['user_id'] = $row['user_id'];
-                $_SESSION['role'] = $row['role'];
-
-                if ($row['role'] == 2)
-                    header("Location:../homepage.php");
-                else
-                    header("Location:../admin.php");
-            } else {
-                header("Location: ../login.php?error=Incorrect User name or password");
-                exit();
-            }
-        } else {
-            header("Location: ../login.php?error=Incorrect User name or password");
-            exit();
-        }
-    }
+            returnJson(['message' => 1]);
+        } else
+            returnJson(['message' => 2]);
+    } else
+        returnJson(['message' => 2]);
 }
