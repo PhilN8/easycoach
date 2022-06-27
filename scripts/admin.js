@@ -130,6 +130,10 @@ const addRoute = () => {
 
       if (resp.message == 2) {
         toastr.success("Route Added Successfully");
+        $("#departure").val("");
+        $("#destination").val("");
+        $("#price").val("");
+
         $("#routeTable").empty();
         resp[0].forEach((el) => {
           $("#routeTable").append(
@@ -192,6 +196,7 @@ const editCost = () => {
 
       if (resp.message == 1) {
         allRoutes();
+        $("#new-cost").val("");
         modal.style.display = "none";
         toastr.success("Cost edited successfully");
       } else toastr.error("Try again later", "Error");
@@ -277,6 +282,65 @@ $("#editForm").submit((evt) => {
       }
 
       if (result.message == 4) toastr.error("Try again later", "Error");
+    },
+    error: () => {
+      toastr.error("Something went wrong");
+    },
+  });
+});
+
+// ADD ADMIN
+
+$("#adminForm").submit((evt) => {
+  evt.preventDefault();
+
+  var fname = $("#fname").val().trim();
+  var lname = $("#lname").val().trim();
+  var username = $("#username").val().trim();
+  var gender = $("#gender").val();
+  var pword1 = $("#pword1").val().trim();
+  var pword2 = $("#pword2").val().trim();
+
+  if (fname == "" || username == "" || pword1 == "" || pword2 == "") {
+    toastr.error("Fill in the required details", "Missing Info");
+
+    if (pword2 == "") $("#pword2").focus();
+    if (pword1 == "") $("#pword1").focus();
+    if (username == "") $("#username").focus();
+    if (fname == "") $("#fname").focus();
+
+    return;
+  }
+
+  if (pword1 != pword2) {
+    toastr.warning("Passwords Don't Match");
+    $("#pword2").focus();
+    return;
+  }
+
+  $.ajax({
+    url: "backend/signup_check.php",
+    method: "POST",
+    data: {
+      fname: fname,
+      lname: lname,
+      gender: gender,
+      password: pword1,
+      uname: username,
+      signup: true,
+    },
+    success: (result) => {
+      if (result.message == 1) {
+        toastr.warning("User Name Already Exists");
+        $("#username").focus();
+      }
+
+      if (result.message == 2) {
+        toastr.success(`New Admin Added`, "Success");
+        $("#adminForm").trigger("reset");
+      }
+
+      if (result.message == 3) toastr.error("Try again later", "Error");
     },
     error: () => {
       toastr.error("Something went wrong");

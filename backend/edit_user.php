@@ -56,9 +56,7 @@ if (isset($_POST['edit'])) {
     $value = $_POST['value'];
     $option = $_POST['option'];
     $new_info = $_POST['new_info'];
-
     $json = [];
-
 
     if (!in_array($value, $all_ids)) {
         $json = ['message' => 1];
@@ -76,7 +74,8 @@ if (isset($_POST['edit'])) {
             $sql = "UPDATE tbl_users SET $option=$new_info WHERE `user_id` = $value";
 
         if ($conn->query($sql) === TRUE) {
-            updateSession($option, $new_info);
+            if ($_SESSION['user_id'] == $value)
+                updateSession($option, $new_info);
 
             $json = [
                 'message' => 3,
