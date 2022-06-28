@@ -237,9 +237,7 @@ const editUser = (userID) => {
   $("#new-update").focus();
 };
 
-$("#editForm").submit((evt) => {
-  evt.preventDefault();
-
+$("#edit").click(() => {
   var value = $("#edit-user").val();
   var option = $("#option").val();
   var new_info =
@@ -366,4 +364,30 @@ counters.forEach((counter) => {
   }
 
   setTimeout(updateCount, 900);
+});
+
+$("#delete-user").click(() => {
+  var id = $("#edit-user").val();
+
+  $.ajax({
+    url: "backend/edit_user.php",
+    method: "POST",
+    data: {
+      id: id,
+      delete: true,
+    },
+    success: (result) => {
+      if (result.message == 1)
+        toastr.error("User Not in System", "Invalid User ID");
+
+      if (result.message == 2) toastr.error("Cannot Delete Yourself", "Error");
+
+      if (result.message == 3) {
+        toastr.success("User Deleted Successfully", "Success");
+        allUsers();
+      }
+
+      if (result.message == 4) toastr.error("Something Went Wrong");
+    },
+  });
 });

@@ -2,7 +2,7 @@
 
 require_once 'db_conn.php';
 
-$user_sql = 'SELECT * FROM tbl_users';
+$user_sql = 'SELECT * FROM tbl_users WHERE `is_deleted` = 0';
 $result = $conn->query($user_sql);
 
 if ($result->num_rows > 0) {

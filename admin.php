@@ -238,10 +238,9 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                             <label for="gender" class="routes__form--label">Gender</label>
                         </div>
 
-                        <button class="w3-button w3-center w3-section complete__btn" type="submit" name="edit">Complete</button>
-                        <button disabled class="w3-button w3-center w3-right w3-section delete__btn" type="submit" name="delete-user" id="delete-user">Delete</button>
-
                     </form>
+                    <button class="w3-button w3-center w3-section complete__btn" type="submit" name="edit" id="edit">Complete</button>
+                    <button class="w3-button w3-center w3-right w3-section delete__btn" name="delete-user" id="delete-user">Delete</button>
                 </section>
 
                 <section class="history admin-section animate-opacity" id="history">
@@ -280,7 +279,6 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                     <div class="routes-container">
                         <div class="routes__div">
                             <p class="routes__form--title">Routes</p>
-                            <!-- <div class="routes__div--table"> -->
                             <table class="routes__table">
                                 <thead>
                                     <tr>
@@ -301,8 +299,8 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                                     <?php } ?>
                                 </tbody>
                             </table>
-                            <!-- </div> -->
                         </div>
+
                         <div class="routes__form">
                             <h2 class="routes__form--title">Add Route</h2>
                             <div class="routes__form--container">
@@ -324,14 +322,6 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                     </div>
 
                 </section>
-
-                <style>
-                    .routes {
-                        display: flex;
-                        flex-direction: row;
-                        gap: 2em;
-                    }
-                </style>
 
                 <section class="users admin-section animate-opacity" id="users">
                     <h2 class="users__title">View Admins</h2>
