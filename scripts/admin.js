@@ -218,10 +218,15 @@ const allUsers = () => {
     success: (result) => {
       var resp = JSON.parse(result);
       $("#userTable").empty();
+      $("#all-users").empty();
 
       resp.forEach((el) => {
         $("#userTable").append(
           `<tr><td>${el.user_id}</td><td>${el.first_name}</td><td>${el.last_name}</td><td>${el.user_name}</td><td><button class="users__edit--btn" onclick="editUser(${el.user_id})">Edit</button></td></tr>`
+        );
+
+        $("#all-users").append(
+          `<option value="${el.user_id}">${el.user_id} - ${el.first_name} ${el.last_name}</option>`
         );
       });
     },
@@ -251,14 +256,6 @@ $("#edit").click(() => {
     return;
   }
 
-  if (option == "id_no" || option == "tel_no") {
-    if (isNaN(new_info)) {
-      toastr.error("Not a Valid Number");
-      $("#new-update").focus();
-      return;
-    }
-  }
-
   $.ajax({
     method: "POST",
     url: "backend/edit_user.php",
@@ -276,6 +273,8 @@ $("#edit").click(() => {
 
       if (result.message == 3) {
         toastr.success(`${result.info} Updated`, "Success");
+        $("#edit-user").val("");
+        $("#new-update").val("");
         allUsers();
       }
 
