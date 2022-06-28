@@ -52,36 +52,6 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
             <main class="content">
                 <section class="admin-section intro animate-opacity" id="intro">
 
-                    <?php if (isset($_GET['route']) && $_GET['route'] == 'no') { ?>
-                        <div class="intro__messages--failed">
-                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
-                            <h2 class="intro__messages--title">Failure</h2>
-                            <p class="intro__messages--text">
-                                Please try again later...
-                            </p>
-                        </div>
-                    <?php } ?>
-
-                    <?php if (isset($_GET['route']) && $_GET['route'] == 'yes') { ?>
-                        <div class="intro__messages--success">
-                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
-                            <h2 class="intro__messages--title">Success</h2>
-                            <p class="intro__messages--text">
-                                Route Added Successfully
-                            </p>
-                        </div>
-                    <?php } ?>
-
-                    <?php if (isset($_GET['route']) && $_GET['route'] == 'exists') { ?>
-                        <div class="intro__messages--failed">
-                            <span class="intro__messages--span" onclick="this.parentElement.style.display = 'none'">&times;</span>
-                            <h2 class="intro__messages--title">Warning</h2>
-                            <p class="intro__messages--text">
-                                Route Already Exists
-                            </p>
-                        </div>
-                    <?php } ?>
-
                     <h1>Welcome, <?= $_SESSION['name'] ?? 'User' ?></h1>
 
                     <div id="status">
@@ -100,6 +70,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                             </div>
                             <a href="javascript:void(0)" onclick="openSection('users')">View More <i class="fas fa-arrow-right"></i></a>
                         </div>
+
                         <div id="Bus" class="info-box status-item">
                             <div class="heading">
                                 <h5>Earnings</h5>
@@ -115,6 +86,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                             </div>
                             <a href="javascript:void(0)" onclick="openSection('history')">View More <i class="fas fa-arrow-right"></i></a>
                         </div>
+
                         <div id="Route" class="info-box status-item">
                             <div class="heading">
                                 <h5>Routes</h5>
@@ -130,6 +102,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                             </div>
                             <a href="javascript:void(0)" onclick="openSection('users')">View More <i class="fas fa-arrow-right"></i></a>
                         </div>
+
                         <div id="Seat" class="info-box status-item">
                             <div class="heading">
                                 <h5>Admins</h5>
@@ -145,6 +118,29 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                             </div>
                             <a href="javascript:void(0)" onclick="openSection('users')">View More <i class="fas fa-arrow-right"></i></a>
                         </div>
+
+                    </div>
+
+                    <div class="intro__table--div">
+                        <h2 class="routes__form--title">Earnings By Route</h2>
+                        <table class="routes__table routes__table--cost">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Route</th>
+                                    <th>Total Earnings</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($earnings as $earning) { ?>
+                                    <tr>
+                                        <td><?= $earning['route_id'] ?></td>
+                                        <td><?= $earning['departure'] . " - " . $earning['destination'] ?></td>
+                                        <td><?= $earning['earnings'] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
 

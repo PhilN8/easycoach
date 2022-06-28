@@ -496,6 +496,22 @@ section.admin-section:not(.intro) {
     color: #f44336;
 }
 
+.intro__table--div {
+    width: min(100%, 800px);
+    margin-inline: auto;
+    margin-top: 2.5rem;
+}
+
+.routes__table--cost {
+    width: min(100%, 800px);
+}
+
+.routes__table--cost tbody tr:first-of-type {
+    background-color: dodgerblue;
+    color: white;
+}
+
+
 /* Profile */
 
 .profile {
@@ -678,6 +694,10 @@ section.admin-section:not(.intro) {
     font-weight: bold;
 }
 
+.info-box a:hover {
+    text-decoration: underline;
+}
+
 /* START-hardcoding */
 #Booking {
     border-color: #3e93d9;
@@ -764,7 +784,6 @@ section.admin-section:not(.intro) {
 }
 
 /* END-hardcoding */
-
 
 #admin .info-box {
     text-align: center;
