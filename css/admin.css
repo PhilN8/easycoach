@@ -271,6 +271,38 @@ section.admin-section:not(.intro) {
 
 .users__table tr:hover, .history__table tr:hover, .routes__table tr:hover {background-color: #ddd;}
 
+.history__table tbody,
+.routes__table tbody {
+    display: block;
+    max-height: 200px;
+    scrollbar-width: none;
+    overflow-y: scroll;
+}
+
+.history__table tbody::-webkit-scrollbar,
+.routes__table tbody::-webkit-scrollbar {
+    width: 0;
+}
+
+.history__table, 
+.history__table tr,
+.routes__table tr,
+.routes__table  {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.history__table {
+    width: min(100%, 1000px);
+}
+
+@media all and (min-width: 600px) {
+    .history__table tbody {
+        max-height: 400px;
+    }
+}
+
 /* Routes */
 
 .routes__form {
@@ -585,6 +617,7 @@ section.admin-section:not(.intro) {
         width: 100%;
     }
 }
+
 
 /* INFO BOXES */
 

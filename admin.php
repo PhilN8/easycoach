@@ -39,12 +39,12 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                 <h3>Menu</h3>
                 <nav class="menu">
                     <a href="javascript:void(0)" class="menu-item active" onclick="openSection('intro')">Home</a>
-                    <a href="javascript:void(0)" class="menu-item" onclick="openSection('history')">Purchase History</a>
                     <a href="javascript:void(0)" class="menu-item" onclick="openSection('routes')">Routes</a>
-                    <h3>Users</h3>
-                    <a href="javascript:void(0)" class="menu-item" onclick="openSection('profile')">Edit Profile</a>
-                    <a href="javascript:void(0)" class="menu-item" onclick="openSection('users')">View Users</a>
+                    <a href="javascript:void(0)" class="menu-item" onclick="openSection('history')">Purchase History</a>
+                    <h3>Admins</h3>
+                    <a href="javascript:void(0)" class="menu-item" onclick="openSection('users')">View Admins</a>
                     <a href="javascript:void(0)" class="menu-item" onclick="openSection('add')">Add Admin</a>
+                    <a href="javascript:void(0)" class="menu-item" onclick="openSection('profile')">Edit Profile</a><br><br>
                     <a href="backend/logout.php" class="menu-item menu-item__last">Logout</a>
                 </nav>
             </aside>
@@ -245,39 +245,42 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                 </section>
 
                 <section class="history admin-section animate-opacity" id="history">
-                    <h2 class="history__title">History of Purchases</h2>
+                    <h2 class="routes__form--title">History of Purchases</h2>
                     <?php if (isset($tickets)) { ?>
-                        <table class="history__table">
-                            <thead>
-                                <tr>
-                                    <th>Purchase ID</th>
-                                    <th>Name</th>
-                                    <th>Contact</th>
-                                    <th>Departure Date</th>
-                                    <th>Seats</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($tickets as $ticket) { ?>
+                        <div class="history__div--table">
+                            <table class="history__table">
+                                <thead>
                                     <tr>
-                                        <td><?= $ticket['purchase_id'] ?></td>
-                                        <td><?= $ticket['first_name'] . " " . $ticket['last_name'] ?></td>
-                                        <td><?= $ticket['tel_no'] ?></td>
-                                        <td><?= $ticket['departure_date'] ?></td>
-                                        <td><?= $ticket['seats'] ?></td>
+                                        <th>Purchase ID</th>
+                                        <th>Name</th>
+                                        <th>Contact</th>
+                                        <th>Departure Date</th>
+                                        <th>Seats</th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($tickets as $ticket) { ?>
+                                        <tr>
+                                            <td><?= $ticket['purchase_id'] ?></td>
+                                            <td><?= $ticket['first_name'] . " " . $ticket['last_name'] ?></td>
+                                            <td><?= $ticket['tel_no'] ?></td>
+                                            <td><?= $ticket['departure_date'] ?></td>
+                                            <td><?= $ticket['seats'] ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     <?php } else { ?>
                         <p class="history__text">No Records of Purchased Tickets</p>
                     <?php } ?>
                 </section>
 
                 <section class="routes admin-section animate-opacity" id="routes">
-                    <div class="routes__div">
-                        <p class="routes__form--title">Routes</p>
-                        <div class="routes__div--table">
+                    <div class="routes-container">
+                        <div class="routes__div">
+                            <p class="routes__form--title">Routes</p>
+                            <!-- <div class="routes__div--table"> -->
                             <table class="routes__table">
                                 <thead>
                                     <tr>
@@ -298,32 +301,40 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                                     <?php } ?>
                                 </tbody>
                             </table>
+                            <!-- </div> -->
                         </div>
-                    </div>
-
-                    <div class="routes__form">
-                        <h2 class="routes__form--title">Add Route</h2>
-                        <div class="routes__form--container">
-                            <div class="routes__form--box">
-                                <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
-                                <label for="departure" class="routes__form--label">Departure Point</label>
+                        <div class="routes__form">
+                            <h2 class="routes__form--title">Add Route</h2>
+                            <div class="routes__form--container">
+                                <div class="routes__form--box">
+                                    <input type="text" name="departure" id="departure" placeholder=" " class="routes__form--input">
+                                    <label for="departure" class="routes__form--label">Departure Point</label>
+                                </div>
+                                <div class="routes__form--box">
+                                    <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
+                                    <label for="destination" class="routes__form--label">Destination</label>
+                                </div>
+                                <div class="routes__form--box">
+                                    <input type="text" name="price" id="price" placeholder=" " class="routes__form--input">
+                                    <label for="price" class="routes__form--label">Price</label>
+                                </div>
                             </div>
-                            <div class="routes__form--box">
-                                <input type="text" name="destination" id="destination" placeholder=" " class="routes__form--input">
-                                <label for="destination" class="routes__form--label">Destination</label>
-                            </div>
-                            <div class="routes__form--box">
-                                <input type="text" name="price" id="price" placeholder=" " class="routes__form--input">
-                                <label for="price" class="routes__form--label">Price</label>
-                            </div>
+                            <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>
                         </div>
-                        <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>
                     </div>
 
                 </section>
 
+                <style>
+                    .routes {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 2em;
+                    }
+                </style>
+
                 <section class="users admin-section animate-opacity" id="users">
-                    <h2 class="users__title">View Users</h2>
+                    <h2 class="users__title">View Admins</h2>
                     <table class="users__table" style="overflow-x: scroll;">
                         <thead>
                             <tr>

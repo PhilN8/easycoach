@@ -357,7 +357,6 @@ counters.forEach((counter) => {
   let i = 0;
 
   function updateCount() {
-    console.log(i++);
     if (i === 1000) return;
     const curr = +counter.innerText;
     if (curr > target) {

@@ -53,7 +53,7 @@ const chooseSeat = (evt) => {
     updateCostUp();
     seatsChosen.push(evt.target.innerHTML);
     $("#chosenSeats").append(
-      `<tr id="seat_${evt.target.innerHTML}"><td>${evt.target.innerHTML}</td><td>${cost.value}</td><td><button class="selected__table--btn" onclick="$('#seat_${evt.target.innerHTML}').remove();$('#seat-${evt.target.innerHTML}').removeClass('selected');updateCostDown(); displayTable();">Remove</button></td>`
+      `<tr id="seat_${evt.target.innerHTML}"><td>${evt.target.innerHTML}</td><td>${cost.value}</td><td><button class="selected__table--btn" onclick="$('#seat_${evt.target.innerHTML}').remove();$('#seat-${evt.target.innerHTML}').removeClass('selected');updateCostDown(); seatsChosen.splice(seatsChosen.indexOf(${evt.target.innerHTML}), 1); displayTable();">Remove</button></td>`
     );
   } else {
     seatsChosen.splice(seatsChosen.indexOf(evt.target.innerHTML), 1);
