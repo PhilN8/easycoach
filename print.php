@@ -95,7 +95,7 @@ $pdf->Ln();
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(45, 10, 'Total Cost:');
 $pdf->SetFont('Arial', '', 16);
-$pdf->Cell(40, 10, $number_of_seats * $ticketInfo->cost);
+$pdf->Cell(40, 10, $ticketInfo->total_cost);
 $pdf->Ln();
 $pdf->Ln();
 

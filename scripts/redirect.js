@@ -20,7 +20,7 @@ const purchaseInfo = () => {
       $("#route").text(`${resp[0].departure} - ${resp[0].destination}`);
       $("#date").text(`${resp[0].departure_date}`);
       $("#seats").text(`${seats}`);
-      $("#total-cost").text(resp[1].length * resp[0].cost);
+      $("#total-cost").text(resp[0].total_cost);
       $("#id_no").text(resp[0].id_number);
       $("#tel_no").text(resp[0].tel_no);
 

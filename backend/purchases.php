@@ -11,10 +11,10 @@ if (isset($_POST['ticket_info'])) {
         $seat_result[] = $row['seat_number'];
 
     $purchase_info_sql
-        = "SELECT `a`.`first_name`, `a`.`last_name`, `a`.`departure_date`, `a`.`tel_no`, `a`.`id_number`,
-        `b`.`route_id`, `b`.`departure`, `b`.`destination`, `b`.`cost` FROM `tbl_ticket` AS a 
-        INNER JOIN `tbl_routes` AS `b` ON `b`.`route_id` = 
-        (SELECT `route_id` FROM `tbl_purchases` WHERE `purchase_id` = $purchase_id) AND `a`.`purchase_id` = $purchase_id LIMIT 1";
+        = "SELECT `a`.`first_name`, `a`.`last_name`, `a`.`departure_date`, `a`.`tel_no`,
+         `a`.`id_number`, `a`.`total_cost`, `b`.`departure`, `b`.`destination` FROM `tbl_purchases` AS a 
+         INNER JOIN `tbl_routes` AS `b` ON `b`.`route_id` = (SELECT `route_id` FROM 
+         `tbl_purchases` WHERE `purchase_id` = $purchase_id) AND `a`.`purchase_id` =  $purchase_id";
 
     $result = $conn->query($purchase_info_sql)->fetch_assoc();
 
@@ -31,10 +31,10 @@ if (isset($_POST['purchase_id'])) {
         $seat_result[] = $row;
 
     $purchase_info_sql
-        = "SELECT `a`.`first_name`, `a`.`last_name`, `a`.`departure_date`, `a`.`tel_no`, `a`.`id_number`,
-        `b`.`route_id`, `b`.`departure`, `b`.`destination`, `b`.`cost` FROM `tbl_ticket` AS a 
-        INNER JOIN `tbl_routes` AS `b` ON `b`.`route_id` = 
-        (SELECT `route_id` FROM `tbl_purchases` WHERE `purchase_id` = $purchase_id) AND `a`.`purchase_id` = $purchase_id LIMIT 1";
+        = "SELECT `a`.`first_name`, `a`.`last_name`, `a`.`departure_date`, `a`.`tel_no`,
+         `a`.`id_number`, `a`.`total_cost`, `b`.`departure`, `b`.`destination` FROM `tbl_purchases` AS a 
+         INNER JOIN `tbl_routes` AS `b` ON `b`.`route_id` = (SELECT `route_id` FROM 
+         `tbl_purchases` WHERE `purchase_id` = $purchase_id) AND `a`.`purchase_id` =  $purchase_id";;
 
     $result = $conn->query($purchase_info_sql)->fetch_assoc();
 

@@ -248,8 +248,9 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                                     <tr>
                                         <th>Purchase ID</th>
                                         <th>Name</th>
-                                        <th>Contact</th>
+                                        <th>Route</th>
                                         <th>Departure Date</th>
+                                        <th>Cost</th>
                                         <th>Seats</th>
                                     </tr>
                                 </thead>
@@ -258,8 +259,9 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                                         <tr>
                                             <td><?= $ticket['purchase_id'] ?></td>
                                             <td><?= $ticket['first_name'] . " " . $ticket['last_name'] ?></td>
-                                            <td><?= $ticket['tel_no'] ?></td>
+                                            <td><?= $ticket['departure'] . " - " . $ticket['destination'] ?></td>
                                             <td><?= $ticket['departure_date'] ?></td>
+                                            <td><?= $ticket['total_cost'] ?></td>
                                             <td><?= $ticket['seats'] ?></td>
                                         </tr>
                                     <?php } ?>

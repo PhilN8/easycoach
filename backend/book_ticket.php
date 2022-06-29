@@ -40,16 +40,16 @@ if (isset($_POST['book-ticket'])) {
 
     $num_seats = count($seats);
 
-    $purchase_sql = "INSERT INTO `tbl_purchases`(`route_id`, `number_of_seats`, `total_cost`, `role`)
-                    VALUES($route, $num_seats, $total_cost, 3)";
+    $purchase_sql = "INSERT INTO `tbl_purchases`(`first_name`, `last_name`, `id_number`, `tel_no`, `departure_date`, `route_id`, `number_of_seats`, `total_cost`, `role`)
+                    VALUES('$fname', '$lname', $id_no, $tel_no, '$dep_date', $route, $num_seats, $total_cost, 3)";
 
     if ($conn->query($purchase_sql) === TRUE) {
         $purchase_id = $conn->insert_id;
 
         for ($i = 0; $i < count($seats); $i++) {
             $seat_no = $seats[$i];
-            $ticket_sql = "INSERT INTO `tbl_ticket`(`purchase_id`, `first_name`, `last_name`, `id_number`, `tel_no`, `seat_number`, `departure_date`)
-                        VALUES($purchase_id, '$fname', '$lname', $id_no, $tel_no, $seat_no, '$dep_date')";
+            $ticket_sql = "INSERT INTO `tbl_ticket`(`purchase_id`, `seat_number`, `departure_date`)
+                        VALUES($purchase_id, $seat_no, '$dep_date')";
 
             $conn->query($ticket_sql);
         }
