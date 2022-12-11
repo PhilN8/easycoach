@@ -1,23 +1,35 @@
 <?php
+error_reporting(0);
 
+require __DIR__ . "\\..\\autoload.php";
 require_once "db_conn.php";
 
-$route_sql = 'SELECT * FROM tbl_routes';
-$result = $conn->query($route_sql);
-$places = [];
+use Classes\Route;
 
-if ($result->num_rows > 0)
-    while ($rows = $result->fetch_assoc())
-        $routes[] = $rows;
+// dd((new Route)->all()[7]);
 
+// $route_sql = 'SELECT * FROM tbl_routes';
+// $result = $conn->query($route_sql);
+// $places = [];
+
+// if ($result->num_rows > 0)
+//     while ($rows = $result->fetch_assoc())
+//         $routes[] = $rows;
+
+$routes = Route::all();
+$route = new Route();
 
 if (isset($_POST['route_id'])) {
     $route = $_POST['route_id'];
-    $cost_sql = "SELECT `cost` FROM `tbl_routes` WHERE `route_id`=" . $route;
+    $cost = Route::cost($route);
 
-    $cost = $conn->query($cost_sql)->fetch_assoc()['cost'];
     echo json_encode(['cost' => $cost]);
 }
+
+// $cost = (new Route)->getCost(5);
+// echo json_encode(['cost' => $cost]);
+
+// dd(stream_resolve_include_path("../autoload.php"));
 
 if (isset($_POST['searchRoute'])) {
     $destination = $_POST['destination'];
@@ -35,44 +47,36 @@ if (isset($_POST['searchRoute'])) {
 if (isset($_POST['add_route'])) {
     $destination = $_POST['destination'];
     $departure = $_POST['departure'];
-    $price = $_POST['price'];
+    $cost = $_POST['cost'];
 
-    $check_sql = "SELECT * FROM `tbl_routes` WHERE `departure`='$departure' AND `destination`='$destination'";
+    // if ($route->search($departure, $destination)) {
+    //     echo json_encode(['message' => 1]);
+    // } else {
+    $result = $route->newRoute($departure, $destination, $cost);
 
-    $result = $conn->query($check_sql)->fetch_assoc();
-
-    if (!is_null($result)) {
+    if (!$result) {
         echo json_encode(['message' => 1]);
     } else {
-        $add_route_sql = "INSERT INTO `tbl_routes`(`departure`, `destination`, `cost`)
-        VALUES('$departure', '$destination', '$price')";
+        echo json_encode([
+            'message' => 2,
+            // 'routes' => $route->getAllRoutes(),
+            'newRoute' => $route->getRoute($result)
+        ]);
 
-        if ($conn->query($add_route_sql) === TRUE) {
-            $result = $conn->query($route_sql);
-
-            while ($row = $result->fetch_assoc())
-                $allRoutes[] = $row;
-
-            echo json_encode(['message' => 2, $allRoutes]);
-        } else
-            echo json_encode(['message' => 3]);
+        exit();
     }
+    // }
 }
 
-if (isset($_POST['routes'])) {
-    $result = $conn->query($route_sql);
-    while ($row = $result->fetch_assoc())
-        $routes[] = $row;
+if (isset($_POST['routes']))
+    echo json_encode(Route::all());
 
-    echo json_encode($routes);
-}
 
 if (isset($_POST['new_cost'])) {
     $new_cost = $_POST['new_cost'];
     $route_id = $_POST['route'];
 
-    $new_cost_sql = "UPDATE `tbl_routes` SET `cost`=$new_cost WHERE `route_id`=$route_id";
-    if ($conn->query($new_cost_sql) === TRUE)
+    if ($route->updateCost($route_id, $new_cost))
         echo json_encode(['message' => 1]);
     else
         echo json_encode(['message' => 2]);

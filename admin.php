@@ -311,8 +311,8 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] == 1) {
                                     <label for="destination" class="routes__form--label">Destination</label>
                                 </div>
                                 <div class="routes__form--box">
-                                    <input type="text" name="price" id="price" placeholder=" " class="routes__form--input">
-                                    <label for="price" class="routes__form--label">Price</label>
+                                    <input type="text" name="cost" id="cost" placeholder=" " class="routes__form--input">
+                                    <label for="cost" class="routes__form--label">Cost</label>
                                 </div>
                             </div>
                             <button class="routes__btn" onclick="addRoute()" name="add-route">Add</button>

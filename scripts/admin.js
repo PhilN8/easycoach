@@ -78,23 +78,23 @@ const allRoutes = () => {
 const addRoute = () => {
   var departure = $("#departure").val().trim();
   var destination = $("#destination").val().trim();
-  var price = $("#price").val().trim();
+  var cost = $("#cost").val().trim();
 
-  if (price == "") {
-    toastr.error("Price is required");
-    $("#price").focus();
+  if (cost == "") {
+    toastr.error("Cost is required");
+    $("#cost").focus();
     return;
   }
 
-  if (isNaN(price)) {
-    toastr.error(`${price} is not a Valid Price`, "Invalid Number");
-    $("#price").val("").focus();
+  if (isNaN(cost)) {
+    toastr.error(`${cost} is not a Valid Cost`, "Invalid Number");
+    $("#cost").val("").focus();
     return;
   }
 
-  if (price < 1000) {
-    toastr.warning("Price Less Than 1000");
-    $("#price").val("").focus();
+  if (cost < 1000) {
+    toastr.warning("Cost Less Than 1000");
+    $("#cost").val("").focus();
     return;
   }
 
@@ -106,43 +106,50 @@ const addRoute = () => {
     return;
   }
 
-  departure.toLowerCase().replace(/\b[a-z]/g, function (letter) {
-    return letter.toUpperCase();
-  });
+  // departure.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+  //   return letter.toUpperCase();
+  // });
 
-  destination.toLowerCase().replace(/\b[a-z]/g, function (letter) {
-    return letter.toUpperCase();
-  });
+  // destination.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+  //   return letter.toUpperCase();
+  // });
 
   $.ajax({
     method: "POST",
     url: "backend/routes.php",
+    dataType: "JSON",
     data: {
       destination: destination,
       departure: departure,
-      price: price,
+      cost: cost,
       add_route: true,
     },
     success: (result) => {
-      var resp = JSON.parse(result);
+      // console.log(typeof result, result.length, result);
+      // var resp = JSON.parse(result);
 
-      if (resp.message == 1) toastr.warning("Route Already Exists");
+      if (result.message == 1) toastr.warning("Route Already Exists");
 
-      if (resp.message == 2) {
+      if (result.message == 2) {
         toastr.success("Route Added Successfully");
         $("#departure").val("");
         $("#destination").val("");
-        $("#price").val("");
+        $("#cost").val("");
 
-        $("#routeTable").empty();
-        resp[0].forEach((el) => {
-          $("#routeTable").append(
-            `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button></td></tr>`
-          );
-        });
+        // $("#routeTable").empty();
+        // result["routes"].forEach((el) => {
+        //   $("#routeTable").append(
+        //     `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button></td></tr>`
+        //   );
+        // });
+
+        var el = result["newRoute"];
+        $("#routeTable").append(
+          `<tr><td>${el.departure}</td><td>${el.destination}</td><td>${el.cost}</td><td><button class="routes__edit--btn" onclick="openModal(${el.route_id})">Edit</button></td></tr>`
+        );
       }
 
-      if (resp.message == 3) toastr.error("Try again later", "Error");
+      if (result.message == 3) toastr.error("Try again later", "Error");
     },
     error: () => toastr.error("Try again later", "Error"),
   });
@@ -192,6 +199,8 @@ const editCost = () => {
       route: routeID,
     },
     success: (result) => {
+      console.log(typeof result, result.length, result);
+
       var resp = JSON.parse(result);
 
       if (resp.message == 1) {

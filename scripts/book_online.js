@@ -103,8 +103,10 @@ const CheckCost = () => {
       route_id: route.value,
     },
     success: (result) => {
+      console.log(result);
       let respond = JSON.parse(result);
       cost.value = respond.cost ?? 0;
+      // cost.value = result.cost ?? 0;
 
       if (chosenSeats.rows.length != 0) {
         $("#chosenSeats").empty();
